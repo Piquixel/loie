@@ -1,7 +1,13 @@
+<script>
+export default {
+  props: {},
+}
+</script>
+
 <template>
-  <div></div>
+  <div>
+    <slot></slot>
+  </div>
 </template>
 
-<script setup></script>
-
-<style lang="scss" scoped></style>
+<style scoped></style>
