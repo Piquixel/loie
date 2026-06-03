@@ -1,3 +1,4 @@
+<!-- Main game's component, the only components that will not be inside is home/landing -->
 <script>
 import { squareInit } from '@/services/gameEngine'
 import BoardSquare from './gameboard/BoardSquare.vue'

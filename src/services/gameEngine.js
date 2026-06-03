@@ -1,3 +1,4 @@
+//Manage general game logic
 import { BoardSquare } from '@/bordSquare'
 
 export function squareInit() {

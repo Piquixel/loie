@@ -1,3 +1,4 @@
+<!-- Component of a square -->
 <script>
 export default {
   props: {},
