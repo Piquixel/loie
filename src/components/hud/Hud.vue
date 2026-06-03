@@ -1,3 +1,4 @@
+<!-- Main hud component -->
 <template>
   <div></div>
 </template>

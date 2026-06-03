@@ -1,3 +1,4 @@
+<!-- Component of the board -->
 <template>
   <div></div>
 </template>

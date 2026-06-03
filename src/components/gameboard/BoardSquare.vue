@@ -1,3 +1,4 @@
+<!-- Component of a square -->
 <template>
   <div></div>
 </template>
