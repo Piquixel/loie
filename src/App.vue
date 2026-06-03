@@ -1,6 +1,6 @@
 <script>
-import MainMenu from './components/landing/MainMenu.vue';
-import GameBox from './components/GameBox.vue';
+import MainMenu from './components/landing/MainMenu.vue'
+import GameBox from './components/GameBox.vue'
 
 export default {
   components: {
@@ -13,6 +13,7 @@ export default {
       // game state
       gameLauched: false,
     }
+  },
 }
 </script>
 
