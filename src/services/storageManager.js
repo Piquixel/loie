@@ -1,19 +1,19 @@
 // Manage saves and loads to localStorage (Player AND GameState)
 export class Storage {
-  dataKey = 'player_data'
+  static dataKey = 'player_data'
 
-  save(data) {
+  static save(data) {
     const stringData = JSON.stringify(data)
 
     localStorage.setItem(this.dataKey, stringData)
   }
 
-  load() {
+  static load() {
     const data = localStorage.getItem(this.dataKey)
     return JSON.parse(data)
   }
 
-  clear() {
+  static clear() {
     localStorage.removeItem(this.dataKey)
     // localStorage.clear() // * Disabled for dev purposes
   }
