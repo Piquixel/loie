@@ -2,10 +2,12 @@
 <!-- Main hud component -->
 <script>
 import PlayerCard from '../ui/PlayerCard.vue'
+import Dice from './Dice.vue'
 
 export default {
   components: {
     PlayerCard,
+    Dice,
   },
 
   data() {
@@ -46,6 +48,8 @@ export default {
     💾
     <span>Sauvegarder</span>
   </button>
+
+  <Dice />
 </template>
 
 <style scoped></style>
