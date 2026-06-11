@@ -1,6 +1,9 @@
 <script>
 import GameBox from './components/GameBox.vue'
 import MainMenu from './components/landing/MainMenu.vue'
+import { usePlayers } from './composables/usePlayers'
+
+const { players: playersRef, initializePlayers } = usePlayers()
 
 export default {
   components: {
@@ -12,14 +15,19 @@ export default {
     return {
       // game state
       gameLauched: false,
-      players: [],
     }
+  },
+
+  computed: {
+    players() {
+      return playersRef
+    },
   },
 
   methods: {
     startGame(players) {
+      initializePlayers(players)
       this.gameLauched = true
-      this.players = players
     },
   },
 }

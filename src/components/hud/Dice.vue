@@ -1,12 +1,19 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <!-- Component of a dice -->
 <script>
+import useDice from '@/composables/useDice'
+import { usePlayers } from '@/composables/usePlayers'
+
+const { rollTwoDices } = useDice()
+const { moveCurrentPlayer } = usePlayers()
+
 export default {
   data() {
     return {
       isRolling: false,
       dice1: 1,
       dice2: 1,
+      total: 0,
     }
   },
 
@@ -23,11 +30,13 @@ export default {
 
       clearInterval(interval)
 
-      const result = this.rollTwoDices()
+      const result = rollTwoDices()
 
       this.dice1 = result.first
       this.dice2 = result.second
+      this.total = result.total
 
+      moveCurrentPlayer(result.total)
       this.isRolling = false
     },
   },

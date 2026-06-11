@@ -1,8 +1,24 @@
 <!-- Component of a player's pawn -->
 <template>
-  <div></div>
+  <div class="cell">
+    <Pawn
+      v-for="player in playerOnThisCell"
+      :key="player.id"
+      :color="player.color"
+    />
+  </div>
 </template>
 
-<script></script>
+<script setup>
+defineProps({
+  color: String
+})
+</script>
 
-<style scoped></style>
+<style scoped>
+.pawn {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+</style>
