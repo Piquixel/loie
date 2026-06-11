@@ -1,59 +1,58 @@
 # VueJS: Projet de l'Oie
 
-## I. Écrans
+## I. Écrans & Architecture des Vues
 
-### 1. Menu Principal
+### 1. Menu Principal (`landing/MainMenu.vue`)
 
 - Nouvelle Partie
-  - Customisation
-    - Joueurs
+  - Customisation de la partie (Modal dédiée):
+    - Gestion des Joueurs (Nom, choix de la couleur). <!-- choix image, choix nombre -->
     - Taille du Plateau
-- Continuer Partie Existante
+- Continuer Partie Existante (Optionnel: grisé si aucun localStorage trouvé).
 
-### 2. Plateau de Jeu
+### 2. Plateau de Jeu (`gameboard/GameBoard.vue`)
 
-- ATH
-- Plateau
+- ATH: Disposé en superposition aux 4 coins de l'écran.
+- Zone centrale: Contient le `GameBoard` (Plateau) et la `Gamebox` (Zone d'action/Dés).
 
-## II. Composants
+## II. Composants & Architecture Vue
 
-### GameBox
+### 1. Structure Globale (`Components/`)
 
-- Dé
+- `GameBox.vue`: Zone centrale interactive. Contient le composant `Dice.vue` (gestion de l'animation du lancer) et les messages d'état.
+- `Modal.vue`: Composant générique et réutilisable (Props: `isOpen`, `title`). Utilise des *Slots* pour le `Header`, `Body`, et `Footer` (Boutons d'actions).
+- `Hud.vue`: Cartes joueurs affichées en coins.
+  - *Props*: `PlayerData: Object`, `isActive: Boolean`.
+  - *Contenu*: Nom, Avatar, Score/Case actuelle, et un indicateur visuel si c'est son tour.
+- `GameBoard.vue`: Contient le chemain des cases. Génère dynamiquement le plateau via un `v-for`.
+- `BoardSquare.vue`: Représente une case unique.
+  - *Props*: `cellData: CellClass`.
+  - *Contenu*: Numéro de la case, design selon le type (Neutre, Action, Malus), et conteneur pour les pions.
+- `Pawn.vue`: Le pion du joueur (pastille colorée). Animé avec des transitions CSS lors des déplacements.
 
-### Modals
+### 2. Logique des Cases (Modèle de données)
 
-- Header
-  - Title
-- Body
-- Footer^?^
-  - Interactions (Boutons)
+```js
+export class Cell {
+  constructor(id, type = 'neutral', effect = null, label = '') {
+    this.id = id; // Numéro de la case (0 à 63)
+    this.type = type; // 'neutral', 'bonus', 'malus', 'teleport'
+    this.effect = effect; // Fonction
+    this.label = label; // Nom de la case (ex: "Labyrinthe")
+  }
+}
+```
 
-### ATH
+#### Catalogue des effets à implémenter
 
-- "Carte" Joueur[^1]
-  - image/couleur de pion
-  - Nom
-  - Score
+| Case | Type | Nom | Effet |
+| --- | --- | --- | --- |
+| Multiples de 9 | Bonus | Oie | Double la valeur du dé lancé. |
+| Case 6 | Téléport | Pont | Déplace immédiatement le joueur à la case 12. |
+| Case 42 | Malus | Labyrinthe | Recul forcé de 12 cases (renvoie à la case 30). |
+| Case 58 | Malus | Tête de Mort | Renvoie immédiatement à la case 0. |
 
-### Plateau
-
-- Cases [^2]
-  - Cases Neutres
-  - Cases Actions
-    - Oies: Bonus - Toute les 9 cases, double la valeur des dés.
-    <!-- - Dés: Raccourcis - Au premier tour, le joueur est déplacé s'il fait une combinaison de 6 et 3 (case 26) ou de 4 et 5 (case 53). -->
-    - Ponts: Raccourcis - En passant par la case 6, le joueur se rend au prochain pont en case 12.
-    <!-- - Hôtel: Malus - A la case 19, le joueur perd un tour de jeu. -->
-    <!-- - Puits: Malus - A la case 31, le joueur immobilisé tant que personne ne prend sa place. -->
-    - Labyrinthe: Malus - A la case 42, le joueur doit reculer de 12 cases.
-    <!-- - Prison: Malus - A la case 52, le joueur doit attendre qu'un autre vienne le libérer, sans prendre sa place. -->
-    - Tête de Mort: Malus - A la case 58, le joueur est renvoyé à la case 0.
-    <!-- Hôtel
-    Prison
-    Puits
-    Dés -->
-- Pions [^3]
+## III. Gestion de l'État Global (State Management)
 
 ## III. Répartition des Tâches
 
@@ -124,7 +123,3 @@ Appelle la méthode de déplacement pour les joueurs concerné, en inversant la 
 ![test](assets/EWprotoATH_Gameboard.png)
 
 *[ATH]: Affichage Tête Haute
-
-[^1]: Une pour chaque joueur dans chaque coins de l'écran, de haut en bas et de gauche à droite.
-[^2]: Au nombre de 63, ont une id numérique unique, pouvant être utilisé pour la position des pions
-[^3]: Représenté par un point coloré/image
