@@ -18,13 +18,27 @@ export default {
       required: true,
     },
   },
+
+  computed: {
+    playerPositions() {
+      return [
+        'absolute top-4 left-4',
+        'absolute top-4 right-4',
+        'absolute bottom-4 left-4',
+        'absolute bottom-4 right-4',
+      ]
+    },
+  },
 }
 </script>
 
 <template>
-  <div class="absolute z-999 bg-none grid grid-col-2 grid-row-2">
-    <PlayerCard v-for="player of players" :key="player.name" />
-  </div>
+  <PlayerCard
+    v-for="(player, index) in players"
+    :key="player.id"
+    :player="player"
+    :class="playerPositions[index]"
+  />
 </template>
 
 <style scoped></style>

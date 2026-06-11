@@ -32,7 +32,7 @@ export default {
     </BoardSquare>
   </div>
 
-  <Hud :players="this.players" />
+  <Hud :players="this.players" class="pointer-events-none fixed inset-0 bg-red-100 z-999" />
 </template>
 
 <style scoped></style>

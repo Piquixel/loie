@@ -1,32 +1,44 @@
 <!-- Component of landing state, the first step before starting a game -->
 <template>
   <Modal :show="true" title="Commencer une partie" :leavable="false">
-    <form class="playersForm" @click.prevent="">
-      <div class="playerInput" v-for="(player, index) in players" :key="index">
-        <label for="pseudo">Pseudo:</label>
+    <form class="flex w-full flex-col gap-4 text-[1.2rem]" @click.prevent="">
+      <div v-for="(player, index) in players" :key="index" class="flex justify-around gap-4">
+        <label class="text-white" for="pseudo">Pseudo:</label>
+
         <input
           v-model="player.name"
           :placeholder="player.name"
           name="pseudo"
           id="pseudo"
           type="text"
+          class="rounded border border-gray-500 bg-zinc-700 px-2 py-1 text-white"
         />
 
-        <label for="color">Couleur:</label>
+        <label class="text-white" for="color">Couleur:</label>
+
         <select
           v-model="player.color"
-          :class="['color-option', player.color]"
+          :class="[
+            'cursor-pointer rounded bg-zinc-700 px-2 py-1',
+            {
+              'text-red-500': player.color === 'red',
+              'text-blue-500': player.color === 'blue',
+              'text-yellow-400': player.color === 'yellow',
+              'text-green-500': player.color === 'green',
+            },
+          ]"
           name="color"
           id="color"
         >
-          <option class="color-option red" value="red">Rouge</option>
-          <option class="color-option blue" value="blue">Bleu</option>
-          <option class="color-option yellow" value="yellow">Jaune</option>
-          <option class="color-option green" value="green">Vert</option>
+          <option class="text-red-500" value="red">Rouge</option>
+          <option class="text-blue-500" value="blue">Bleu</option>
+          <option class="text-yellow-400" value="yellow">Jaune</option>
+          <option class="text-green-500" value="green">Vert</option>
         </select>
       </div>
+
       <button
-        class="footer"
+        class="mt-5 self-center rounded bg-blue-600 px-5 py-2.5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-400"
         name="footer"
         :disabled="!arePlayersValid"
         @click="$emit('startGame', players)"
@@ -71,7 +83,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<!-- <style scoped>
 .playersForm {
   width: 100%;
   display: flex;
@@ -148,4 +160,4 @@ option:hover {
   background-color: inherit;
   cursor: pointer;
 }
-</style>
+</style> -->

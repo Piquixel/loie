@@ -1,15 +1,22 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <!-- Template component of a modal (use for landing, display square effects or winner/loser result at endgame) -->
 <template>
   <Teleport to="body">
-    <div v-if="show" class="modal-overlay" @click.self="close">
-      <div class="modal">
+    <div
+      v-if="show"
+      class="fixed inset-0 flex items-center justify-center bg-black/50"
+      @click.self="close"
+    >
+      <div class="w-full max-w-2/5 rounded-lg bg-zinc-700 p-5 text-white flex flex-col gap-10">
         <slot name="header">
-          <h2>{{ title }}</h2>
+          <h2 class="mt-0 text-2xl font-semibold">
+            {{ title }}
+          </h2>
         </slot>
 
         <slot />
 
-        <slot class="footer" name="footer" />
+        <slot name="footer" />
       </div>
     </div>
   </Teleport>
@@ -56,7 +63,7 @@ export default {
 }
 </script>
 
-<style>
+<!-- <style>
 :host {
   font-family: 'Arial', sans-serif;
   color: white;
@@ -98,4 +105,4 @@ export default {
   margin-top: 0;
   color: white;
 }
-</style>
+</style> -->

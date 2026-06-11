@@ -1,5 +1,12 @@
 <!-- Template of a card (only use for displaying player info but could be used for more in the future) -->
 <script>
+const PLAYER_COLORS = {
+  red: 'bg-red-500',
+  blue: 'bg-blue-500',
+  yellow: 'bg-yellow-400',
+  green: 'bg-green-500',
+}
+
 export default {
   props: {
     player: {
@@ -7,22 +14,30 @@ export default {
       required: true,
     },
   },
+
+  computed: {
+    colorClass() {
+      return PLAYER_COLORS[this.player.color]
+    },
+  },
 }
 </script>
 
 <template>
-  <div class="player-card">
-    <div class="player-color" :class="player.color"></div>
+  <div class="flex items-center gap-4 rounded-lg bg-zinc-800 p-4">
+    <div :class="['h-8 w-8 rounded-full', colorClass]" />
 
-    <div class="player-info">
-      <h3>{{ player.name }}</h3>
+    <div>
+      <h3 class="text-white">
+        {{ player.name }}
+      </h3>
 
-      <p>Position : {{ player.position }}</p>
+      <p class="mt-2 text-gray-300">Position : {{ player.position ?? 0 }}</p>
     </div>
   </div>
 </template>
 
-<style scoped>
+<!-- <style scoped>
 .player-card {
   display: flex;
   align-items: center;
@@ -60,4 +75,4 @@ export default {
   margin: 0.5rem 0;
   color: lightgray;
 }
-</style>
+</style> -->
