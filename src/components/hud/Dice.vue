@@ -8,6 +8,7 @@ export default {
       isRolling: false,
       dice1: 1,
       dice2: 1,
+      total: 1,
     }
   },
 
@@ -22,6 +23,8 @@ export default {
       const interval = setInterval(() => {
         this.dice1 = Math.floor(Math.random() * 6) + 1
         this.dice2 = Math.floor(Math.random() * 6) + 1
+
+        this.total = this.dice1 + this.dice2
       }, 100)
 
       await new Promise((resolve) => setTimeout(resolve, 1000))
@@ -32,6 +35,7 @@ export default {
 
       this.dice1 = result.first
       this.dice2 = result.second
+      this.total = result.total
 
       this.isRolling = false
 
