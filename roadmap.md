@@ -64,9 +64,9 @@ export class Cell {
 
 ### :test_tube: Thomas (Logique du Plateau & Rendu)
 
-- [ ] __Étape 1__: Création de la classe `Cell` et script de génération du tableau des 64 cases (avec types et effets).
-- [ ] __Étape 2__: Création du composant visuel `BoardSquare.vue` (CSS pour différencier les oies, ponts, labyrinthe, etc.).
-- [ ] __Étape 3__: Assemblage du `GameBoard.vue` (disposition des cases en zig-zag).
+- [X] __Étape 1__: Création de la classe `Cell` et script de génération du tableau des 64 cases (avec types et effets).
+- [X] __Étape 2__: Création du composant visuel `BoardSquare.vue` (CSS pour différencier les oies, ponts, labyrinthe, etc.).
+- [X] __Étape 3__: Assemblage du `GameBoard.vue` (disposition des cases en zig-zag).
 
 ### :game_die: Nicolas (Gameplay & Entités)
 

@@ -1,6 +1,6 @@
 <!-- Main game's component, the only components that will not be inside is home/landing -->
 <script>
-import { squareInit } from '@/services/gameEngine'
+import { squares } from '@/services/gameEngine'
 import BoardSquare from './gameboard/BoardSquare.vue'
 import Hud from './hud/Hud.vue'
 
@@ -14,7 +14,7 @@ export default {
   },
   data() {
     return {
-      squares: squareInit(),
+      squares,
     }
   },
   methods: {},
@@ -24,7 +24,7 @@ export default {
 <template>
   <div>
     <BoardSquare
-      :class="{ special: square.hasAction }"
+      :class="{ special: square.hasEffect }"
       v-for="(square, index) in squares"
       :key="index"
     >

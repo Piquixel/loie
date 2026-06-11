@@ -1,1 +1,13 @@
 @import 'tailwindcss';
+
+.malus {
+  @apply text-red-600;
+}
+
+.bonus {
+  @apply text-amber-500;
+}
+
+.teleport {
+  @apply text-green-700;
+}
