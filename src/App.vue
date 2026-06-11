@@ -1,6 +1,6 @@
 <script>
-import MainMenu from './components/landing/MainMenu.vue'
 import GameBox from './components/GameBox.vue'
+import MainMenu from './components/landing/MainMenu.vue'
 
 export default {
   components: {
@@ -22,4 +22,4 @@ export default {
   <GameBox v-else />
 </template>
 
-<style scoped></style>
+<style></style>

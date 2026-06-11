@@ -25,4 +25,4 @@ export default {
   </table>
 </template>
 
-<style scoped></style>
+<style></style>
