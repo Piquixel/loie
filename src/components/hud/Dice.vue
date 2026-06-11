@@ -1,6 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <!-- Component of a dice -->
 <script>
+import useDice from '@/composables/useDice'
 export default {
   data() {
     return {
@@ -8,6 +9,10 @@ export default {
       dice1: 1,
       dice2: 1,
     }
+  },
+
+  created() {
+    this.dice = useDice()
   },
 
   methods: {
@@ -23,12 +28,14 @@ export default {
 
       clearInterval(interval)
 
-      const result = this.rollTwoDices()
+      const result = this.dice.rollTwoDices()
 
       this.dice1 = result.first
       this.dice2 = result.second
 
       this.isRolling = false
+
+      //futur emit OU envois pour move
     },
   },
 }
