@@ -58,9 +58,10 @@ export class Cell {
 
 ### :hammer_and_wrench: Florian (UI & Structure Globale)
 
-- [ ] Création du `MainMenu.vue` et de la logique de configuration des joueurs.
-- [ ] Développement du composant générique `Modal.vue` (avec slots).
-- [ ] Intégration et design de l'ATH (`Hud.vue`) aux quatres coins du plateau.
+- [X] Création du `MainMenu.vue` et de la logique de configuration des joueurs.
+- [X] Développement du composant générique `Modal.vue` (avec slots).
+- [X] Intégration et design de l'ATH (`Hud.vue`) aux quatres coins du plateau.
+- [ ] Développement de la `GameBox.vue` et du système de lancer de Dé (`Dice.vue` avec génération de nombre aléatoire 1-6).
 
 ### :test_tube: Thomas (Logique du Plateau & Rendu)
 
@@ -71,7 +72,6 @@ export class Cell {
 ### :game_die: Nicolas (Gameplay & Entités)
 
 - [ ] Modélisation des joueurs et création du composant `Pawn.vue` (Pion).
-<!-- - [ ] Développement de la `GameBox.vue` et du système de lancer de dés -->
 - [ ] Gestion de la logique d'affichage des pions à *l'intérieur* d'une même case (gérer les chevauchements si deux joueurs sont sur la même case).
 
 ## IV. Schémas
