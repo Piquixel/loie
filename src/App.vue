@@ -12,14 +12,22 @@ export default {
     return {
       // game state
       gameLauched: false,
+      players: [],
     }
+  },
+
+  methods: {
+    startGame(players) {
+      this.gameLauched = true
+      this.players = players
+    },
   },
 }
 </script>
 
 <template>
-  <MainMenu v-if="!gameLauched" />
-  <GameBox v-else />
+  <MainMenu v-if="!gameLauched" @startGame="startGame($event)" />
+  <GameBox v-else :players="this.players" />
 </template>
 
 <style scoped></style>

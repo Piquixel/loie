@@ -2,10 +2,16 @@
 <script>
 import { squareInit } from '@/services/gameEngine'
 import BoardSquare from './gameboard/BoardSquare.vue'
+import Hud from './hud/Hud.vue'
 
 export default {
-  components: { BoardSquare },
-  props: {},
+  components: { BoardSquare, Hud },
+  props: {
+    players: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
       squares: squareInit(),
@@ -25,6 +31,8 @@ export default {
       {{ index }}
     </BoardSquare>
   </div>
+
+  <Hud :players="this.players" />
 </template>
 
 <style scoped></style>

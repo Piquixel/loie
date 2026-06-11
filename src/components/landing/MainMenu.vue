@@ -25,7 +25,14 @@
           <option class="color-option green" value="green">Vert</option>
         </select>
       </div>
-      <button class="footer" name="footer" :disabled="!arePlayersValid">Lancer la partie</button>
+      <button
+        class="footer"
+        name="footer"
+        :disabled="!arePlayersValid"
+        @click="$emit('startGame', players)"
+      >
+        Lancer la partie
+      </button>
     </form>
   </Modal>
 </template>
