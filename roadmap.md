@@ -52,59 +52,27 @@ export class Cell {
 | Case 42 | Malus | Labyrinthe | Recul forcé de 12 cases (renvoie à la case 30). |
 | Case 58 | Malus | Tête de Mort | Renvoie immédiatement à la case 0. |
 
-## III. Gestion de l'État Global (State Management)
+<!-- ## III. Gestion de l'État Global (State Management) -->
 
-## III. Répartition des Tâches
+## IV. Répartition des Tâches & Suivi
 
-### 1. Menu Principal
+### :hammer_and_wrench: Florian (UI & Structure Globale)
 
-`Florian`
+- [ ] Création du `MainMenu.vue` et de la logique de configuration des joueurs.
+- [ ] Développement du composant générique `Modal.vue` (avec slots).
+- [ ] Intégration et design de l'ATH (`Hud.vue`) aux quatres coins du plateau.
 
-- Modals
+### :test_tube: Thomas (Logique du Plateau & Rendu)
 
-### 2. Gamebox
+- [ ] __Étape 1__: Création de la classe `Cell` et script de génération du tableau des 64 cases (avec types et effets).
+- [ ] __Étape 2__: Création du composant visuel `BoardSquare.vue` (CSS pour différencier les oies, ponts, labyrinthe, etc.).
+- [ ] __Étape 3__: Assemblage du `GameBoard.vue` (disposition des cases en zig-zag).
 
-- Joueurs: `Nicolas`
-- Cases (Logique): `Thomas | 1`
-  - Creation de la classe
-  - Instancier les classes dans un tableau
+### :game_die: Nicolas (Gameplay & Entités)
 
-#### ATH
-
-`Florian`
-
-#### Plateau
-
-- Cases (Composant): `Thomas | 2`
-- Pions: `Nicolas`
-
-<!-- ## III. Méthodes
-
-### 1. Déplacement
-
-> [!NOTE]
-> La position d'un pion est déterminé par l'index de la case à laquelle il est attribué dans le tableau de cases.
-
-#### Paramètres
-
-- `value: number` | Si positif, le pion avance et recule si négatif.
-
-#### Fonction
-
-- Calcule la position d'un pion en additionnant l'index de sa case actuelle avec le résultat du lancé de dés, ou avec la différence entre les index de cases causants un déplacement.
-
-### 2. Échange
-
-> [!NOTE]
-> On prend comme valeur de déplacement pour un échange, le résultat du lancé de dés du joueur arrivant sur une case occupée.
-
-#### Paramètres
-
-- `none`
-
-#### Fonctions
-
-Appelle la méthode de déplacement pour les joueurs concerné, en inversant la valeur de déplacement pour le joueur à faire reculer. -->
+- [ ] Modélisation des joueurs et création du composant `Pawn.vue` (Pion).
+<!-- - [ ] Développement de la `GameBox.vue` et du système de lancer de dés -->
+- [ ] Gestion de la logique d'affichage des pions à *l'intérieur* d'une même case (gérer les chevauchements si deux joueurs sont sur la même case).
 
 ## IV. Schémas
 
