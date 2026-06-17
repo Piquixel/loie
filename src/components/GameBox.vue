@@ -1,38 +1,38 @@
 <!-- Main game's component, the only components that will not be inside is home/landing -->
-<script>
-import { squares } from '@/services/gameEngine'
-import BoardSquare from './gameboard/BoardSquare.vue'
+<script lang="ts">
+import type { Player } from '@/models/interfaces/player.interface'
+import { cells } from '@/services/gameEngine'
+import { defineComponent, type PropType } from 'vue'
+import BoardSquare from './gameboard/BoardCell.vue'
 import Hud from './hud/Hud.vue'
 
-export default {
+export default defineComponent({
   components: { BoardSquare, Hud },
   props: {
     players: {
-      type: Array,
+      type: Array as PropType<Player[]>,
       required: true,
     },
   },
   data() {
     return {
-      squares,
+      cells,
     }
   },
   methods: {},
-}
+})
 </script>
 
 <template>
-  <div>
-    <BoardSquare
-      :class="{ special: square.hasEffect }"
-      v-for="(square, index) in squares"
-      :key="index"
-    >
-      {{ index }}
-    </BoardSquare>
-  </div>
+  <div class="game-box-wrapper">
+    <div>
+      <BoardSquare v-for="(cell, index) in cells" :class="{ special: cell.hasEffect }" :key="index">
+        {{ index }}
+      </BoardSquare>
+    </div>
 
-  <Hud :players="this.players" class="pointer-events-none fixed inset-0 bg-red-100 z-999" />
+    <Hud :players="players" class="fixed inset-0 bg-red-100 z-999" />
+  </div>
 </template>
 
 <style scoped></style>

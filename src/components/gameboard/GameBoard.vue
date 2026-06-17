@@ -1,13 +1,14 @@
 <!-- Component of the board -->
-<script>
-import { squareInit, squares } from '@/services/gameEngine'
-import BoardSquare from './BoardSquare.vue'
+<script lang="ts">
+import { cells, squareInit } from '@/services/gameEngine'
+import { defineComponent } from 'vue'
+import BoardSquare from './BoardCell.vue'
 
-export default {
+export default defineComponent({
   components: { BoardSquare },
   data() {
     return {
-      squares,
+      cells,
     }
   },
   computed: {
@@ -16,7 +17,7 @@ export default {
       const rows = []
 
       for (let i = 0; i < size; i++) {
-        const row = this.squares.slice(i * size, (i + 1) * size)
+        const row = this.cells.slice(i * size, (i + 1) * size)
         rows.push(row)
       }
 
@@ -29,11 +30,11 @@ export default {
     },
   },
   mounted() {
-    if (this.squares.length === 0) {
+    if (this.cells.length === 0) {
       squareInit()
     }
   },
-}
+})
 </script>
 
 <!-- Temporary Gameboard -->

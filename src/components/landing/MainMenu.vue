@@ -49,10 +49,12 @@
   </Modal>
 </template>
 
-<script>
+<script lang="ts">
+import type { Player } from '@/models/interfaces/player.interface'
 import Modal from '../ui/Modal.vue'
+import { defineComponent } from 'vue'
 
-export default {
+export default defineComponent({
   components: {
     Modal,
   },
@@ -64,7 +66,7 @@ export default {
         { name: 'Player 2', color: 'blue' },
         { name: 'Player 3', color: 'yellow' },
         { name: 'Player 4', color: 'green' },
-      ],
+      ] as Player[],
     }
   },
 
@@ -80,7 +82,7 @@ export default {
       return !hasEmptyName && !hasDuplicateName && !hasDuplicateColor
     },
   },
-}
+})
 </script>
 
 <!-- <style scoped>

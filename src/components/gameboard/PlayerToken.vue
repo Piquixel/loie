@@ -1,4 +1,4 @@
-<!-- Component of a player info card -->
+<!-- Component of a player's token -->
 <template>
   <div></div>
 </template>

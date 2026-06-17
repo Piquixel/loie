@@ -1,6 +1,7 @@
-<script>
+<script lang="ts">
 import GameBox from './components/GameBox.vue'
 import MainMenu from './components/landing/MainMenu.vue'
+import type { Player } from './models/interfaces/player.interface'
 
 export default {
   components: {
@@ -11,14 +12,14 @@ export default {
   data() {
     return {
       // game state
-      gameLauched: false,
-      players: [],
+      gameLaunched: false,
+      players: [] as Player[],
     }
   },
 
   methods: {
-    startGame(players) {
-      this.gameLauched = true
+    startGame(players: Player[]) {
+      this.gameLaunched = true
       this.players = players
     },
   },
@@ -26,8 +27,8 @@ export default {
 </script>
 
 <template>
-  <MainMenu v-if="!gameLauched" @startGame="startGame($event)" />
-  <GameBox v-else :players="this.players" class="inset-0" />
+  <MainMenu v-if="!gameLaunched" @startGame="startGame($event)" />
+  <GameBox v-else :players="players" class="inset-0" />
 </template>
 
 <style></style>

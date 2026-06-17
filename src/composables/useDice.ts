@@ -1,11 +1,13 @@
 //Manage use of dice (initialize -> attribute value with service/dice -> return result)
 
+import type { DiceData } from '@/models/interfaces/dice.interface'
 import { rollDice } from '@/services/dice'
 
 export default function useDice() {
-  function rollTwoDices() {
-    const first = rollDice()
-    const second = rollDice()
+  function rollTwoDices(): DiceData {
+    console.log('clicked')
+    const first: number = rollDice()
+    const second: number = rollDice()
 
     return {
       first,

@@ -22,8 +22,9 @@
   </Teleport>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+export default defineComponent({
   props: {
     show: {
       type: Boolean,
@@ -44,7 +45,7 @@ export default {
       this.$emit('close')
     },
 
-    handleKeydown(event) {
+    handleKeydown(event: KeyboardEvent) {
       if (event.key === 'Escape') {
         this.close()
       }
@@ -60,7 +61,9 @@ export default {
   unmounted() {
     window.removeEventListener('keydown', this.handleKeydown)
   },
-}
+
+  emits: ['startGame', 'close'],
+})
 </script>
 
 <!-- <style>

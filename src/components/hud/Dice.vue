@@ -1,23 +1,27 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <!-- Component of a dice -->
-<script>
+<script lang="ts">
 import useDice from '@/composables/useDice'
-export default {
+import type { DiceData } from '@/models/interfaces/dice.interface'
+import { defineComponent } from 'vue'
+export default defineComponent({
   data() {
     return {
       isRolling: false,
+      dice: null as ReturnType<typeof useDice> | null,
       dice1: 1,
       dice2: 1,
       total: 1,
     }
   },
 
-  created() {
+  created(): void {
     this.dice = useDice()
   },
 
   methods: {
-    async roll() {
+    async roll(): Promise<void> {
+      if (this.isRolling) return
       this.isRolling = true
 
       const interval = setInterval(() => {
@@ -27,28 +31,31 @@ export default {
         this.total = this.dice1 + this.dice2
       }, 100)
 
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      await new Promise<void>((resolve) => setTimeout(resolve, 1000))
 
       clearInterval(interval)
 
-      const result = this.dice.rollTwoDices()
+      if (this.dice) {
+        const result: DiceData = this.dice.rollTwoDices()
+        this.dice1 = result.first
+        this.dice2 = result.second
+        this.total = result.total
 
-      this.dice1 = result.first
-      this.dice2 = result.second
-      this.total = result.total
+        //futur emit OU envois pour move
+        this.$emit('diceRolled', result)
+      }
 
       this.isRolling = false
-
-      //futur emit OU envois pour move
     },
   },
-}
+})
 </script>
 <template>
   <div class="absolute top-1/2 right-6 flex -translate-y-1/2 flex-col gap-4">
     <button
       @click="roll"
-      class="flex flex-col items-center rounded-xl bg-zinc-800 p-4 text-white shadow-lg transition hover:bg-zinc-700 hover:cursor-pointer"
+      :disabled="isRolling"
+      class="cursor-pointer flex flex-col items-center rounded-xl bg-zinc-800 p-4 text-white shadow-lg transition hover:bg-zinc-700 hover:cursor-pointer"
     >
       <span class="text-3xl">🎲</span>
       <span>Lancer</span>

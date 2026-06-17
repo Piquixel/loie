@@ -1,26 +1,29 @@
 <!-- Template of a card (only use for displaying player info but could be used for more in the future) -->
-<script>
-const PLAYER_COLORS = {
+<script lang="ts">
+import type { Player } from '@/models/interfaces/player.interface'
+import { defineComponent, type PropType } from 'vue'
+
+const PLAYER_COLORS: Record<string, string> = {
   red: 'bg-red-500',
   blue: 'bg-blue-500',
   yellow: 'bg-yellow-400',
   green: 'bg-green-500',
 }
 
-export default {
+export default defineComponent({
   props: {
     player: {
-      type: Object,
+      type: Object as PropType<Player>,
       required: true,
     },
   },
 
   computed: {
-    colorClass() {
+    colorClass(): string | undefined {
       return PLAYER_COLORS[this.player.color]
     },
   },
-}
+})
 </script>
 
 <template>
