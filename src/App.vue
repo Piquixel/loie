@@ -5,7 +5,7 @@ import usePlayers from './composables/usePlayers'
 import type { Player } from './models/interfaces/player.interface'
 import { Storage } from './services/storageManager.ts'
 
-const { players: playersRef, initializePlayers } = usePlayers
+const { players: playersRef, initializePlayers, resetPlayers } = usePlayers
 
 export default {
   components: {
