@@ -41,6 +41,8 @@ function movePlayer(playerId: number, delta: number) {
   }
 
   player.position += delta
+  console.log(currentPlayerIndex.value)
+  currentPlayerIndex.value = currentPlayerIndex.value < 3 ? currentPlayerIndex.value + 1 : 0
 }
 
 function moveCurrentPlayer(delta: number) {
