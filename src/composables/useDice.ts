@@ -5,7 +5,6 @@ import { rollDice } from '@/services/dice'
 
 export default function useDice() {
   function rollTwoDices(): DiceData {
-    console.log('clicked')
     const first: number = rollDice()
     const second: number = rollDice()
 
