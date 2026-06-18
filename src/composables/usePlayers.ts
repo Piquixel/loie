@@ -60,7 +60,7 @@ function movePlayer(playerId: number, delta: number) {
     } else if (targetCell.player !== player.id) {
       const standingPlayer = players.value.find((p) => p.id === targetCell.player)
 
-      if (standingPlayer) {
+      if (standingPlayer && cells.findIndex((c) => c === targetCell) !== 0) {
         standingPlayer.position = player.lastPosition
         console.log(`${standingPlayer.name} a été repousser à la place de ${player.name}`)
 
@@ -92,14 +92,12 @@ function checkEnd() {
   return players.value.find((p) => p.position == 63)
 }
 
-export function usePlayers() {
-  return {
-    players,
-    currentPlayerIndex,
-    initializePlayers,
-    addPlayer,
-    movePlayer,
-    moveCurrentPlayer,
-    checkEnd,
-  }
+export default {
+  players,
+  currentPlayerIndex,
+  initializePlayers,
+  addPlayer,
+  movePlayer,
+  moveCurrentPlayer,
+  checkEnd,
 }
