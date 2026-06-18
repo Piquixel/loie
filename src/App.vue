@@ -1,6 +1,7 @@
 <script lang="ts">
 import GameBox from './components/GameBox.vue'
 import MainMenu from './components/landing/MainMenu.vue'
+import { usePlayers } from './composables/usePlayers'
 import type { Player } from './models/interfaces/player.interface'
 
 const { players: playersRef, initializePlayers } = usePlayers()
@@ -20,7 +21,7 @@ export default {
 
   computed: {
     players() {
-      return playersRef
+      return playersRef.value
     },
   },
 

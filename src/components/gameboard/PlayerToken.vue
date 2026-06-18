@@ -1,7 +1,7 @@
 <!-- Component of a player's token -->
 <template>
   <div class="cell">
-    <Pawn v-for="player in playerOnThisCell" :key="player.id" :color="player.color" />
+    <PlayerToken v-for="player in playerOnThisCell" :key="player.id" :color="player.color" />
   </div>
 </template>
 
