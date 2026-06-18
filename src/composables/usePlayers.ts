@@ -52,6 +52,7 @@ function movePlayer(playerId: number, delta: number) {
 
   player.lastPosition = player.position
   player.position += delta
+
   if (player.position > 63) player.position = 63 - (player.position - 63)
 
   if (player.position < 0) player.position = 0
@@ -78,7 +79,7 @@ function movePlayer(playerId: number, delta: number) {
     }
     targetCell.onLand(player)
   }
-  if (player.position > 63) player.position = 63 - (player.position - 63)
+  if (player.position > 63) player.position = 63 - (player.position - 63) // double check après les effet de case (case de l'oie 54)
 
   currentPlayerIndex.value =
     currentPlayerIndex.value < players.value.length - 1 ? currentPlayerIndex.value + 1 : 0
