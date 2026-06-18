@@ -1,6 +1,7 @@
 //Centralize player logic (add, move, reset, etc)
 
 import type { Player } from '@/models/interfaces/player.interface'
+import { cells } from '@/services/gameEngine'
 import { ref, type Ref } from 'vue'
 
 const players: Ref<Player[]> = ref([])
@@ -40,7 +41,9 @@ function movePlayer(playerId: number, delta: number) {
     return
   }
 
+  player.lastPosition = player.position
   player.position += delta
+  if (cells[player.position]?.hasEffect) cells[player.position]?.effect!(player)
   console.log(currentPlayerIndex.value)
   currentPlayerIndex.value = currentPlayerIndex.value < 3 ? currentPlayerIndex.value + 1 : 0
 }
