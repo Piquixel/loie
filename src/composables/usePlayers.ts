@@ -78,6 +78,7 @@ function movePlayer(playerId: number, delta: number) {
     }
     targetCell.onLand(player)
   }
+  if (player.position > 63) player.position = 63 - (player.position - 63)
 
   currentPlayerIndex.value =
     currentPlayerIndex.value < players.value.length - 1 ? currentPlayerIndex.value + 1 : 0
