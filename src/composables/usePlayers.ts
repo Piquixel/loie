@@ -41,11 +41,41 @@ function movePlayer(playerId: number, delta: number) {
     return
   }
 
+  const oldCell = cells.find((c) => c.player === player.id)
+  if (oldCell) {
+    oldCell.player = undefined
+  }
+
   player.lastPosition = player.position
   player.position += delta
-  if (cells[player.position]?.hasEffect) cells[player.position]?.effect!(player)
-  console.log(currentPlayerIndex.value)
-  currentPlayerIndex.value = currentPlayerIndex.value < 3 ? currentPlayerIndex.value + 1 : 0
+
+  if (player.position < 0) player.position = 0
+
+  const targetCell = cells[player.position]
+
+  if (targetCell) {
+    if (!targetCell.player) {
+      targetCell.player = player.id
+    } else if (targetCell.player !== player.id) {
+      const standingPlayer = players.value.find((p) => p.id === targetCell.player)
+
+      if (standingPlayer) {
+        standingPlayer.position = player.lastPosition
+        console.log(`${standingPlayer.name} a été repousser à la place de ${player.name}`)
+
+        const originalCell = cells[player.lastPosition]
+        if (originalCell) {
+          originalCell.player = standingPlayer.id
+        }
+      }
+
+      targetCell.player = player.id
+    }
+    targetCell.onLand(player)
+  }
+
+  currentPlayerIndex.value =
+    currentPlayerIndex.value < players.value.length - 1 ? currentPlayerIndex.value + 1 : 0
 }
 
 function moveCurrentPlayer(delta: number) {
