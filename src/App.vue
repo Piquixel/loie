@@ -3,6 +3,7 @@ import GameBox from './components/GameBox.vue'
 import MainMenu from './components/landing/MainMenu.vue'
 import usePlayers from './composables/usePlayers'
 import type { Player } from './models/interfaces/player.interface'
+import { Storage } from './services/storageManager.ts'
 
 const { players: playersRef, initializePlayers } = usePlayers
 
@@ -30,6 +31,12 @@ export default {
       initializePlayers(players)
       this.gameLaunched = true
     },
+
+    restartGame() {
+      Storage.clear()
+      resetPlayers()
+      this.gameLaunched = false
+    },
   },
 }
 </script>
@@ -40,6 +47,7 @@ export default {
     v-else
     :players="players"
     class="flex justify-center items-center h-screen bg-zinc-600"
+    @restartGame="restartGame"
   />
 </template>
 

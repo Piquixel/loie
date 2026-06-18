@@ -52,7 +52,7 @@ export default defineComponent({
       <span>Sauvegarder</span>
     </button>
 
-    <Dice />
+    <Dice @gameOver="$emit('gameOver', $event)" />
   </div>
 </template>
 

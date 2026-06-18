@@ -7,7 +7,7 @@ import type { DiceData } from '@/models/interfaces/dice.interface'
 import { defineComponent } from 'vue'
 
 const { rollTwoDices } = useDice()
-const { moveCurrentPlayer, checkEnd } = usePlayers
+const { moveCurrentPlayer, checkEnd, getCurrentPlayer } = usePlayers
 
 export default defineComponent({
   data() {
@@ -49,17 +49,41 @@ export default defineComponent({
         moveCurrentPlayer(result.total)
 
         if (checkEnd()) {
-          this.$emit('gameOver')
+          console.log('FINIIIIIII', checkEnd()?.name)
+
+          this.$emit('gameOver', checkEnd())
         }
       }
 
       this.isRolling = false
     },
   },
+
+  computed: {
+    getCurrentPlayer() {
+      return getCurrentPlayer()
+    },
+
+    playerColorClass(): Record<string, string> {
+      return {
+        red: 'bg-red-600',
+        blue: 'bg-blue-600',
+        green: 'bg-green-600',
+        yellow: 'bg-yellow-600',
+      }
+    },
+  },
 })
 </script>
 <template>
   <div class="absolute top-1/2 right-6 flex -translate-y-1/2 flex-col gap-4">
+    <div
+      class="flex flex-col items-center rounded-xl p-4 text-white shadow-lg transition"
+      :class="playerColorClass[getCurrentPlayer!.color]"
+    >
+      <span>Au tour de</span>
+      <span>{{ getCurrentPlayer.name }}</span>
+    </div>
     <button
       @click="roll"
       :disabled="isRolling"
