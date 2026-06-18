@@ -28,6 +28,12 @@ export default defineComponent({
       this.winner = winner.name
       this.gameRunning = false
     },
+
+    restartGame() {
+      this.winner = ''
+      this.gameRunning = true
+      this.$emit('restartGame')
+    },
   },
 
   computed: {
@@ -65,7 +71,7 @@ export default defineComponent({
 
       <template #footer>
         <button
-          @click="$emit('restartGame')"
+          @click="restartGame"
           class="mt-5 self-center rounded bg-blue-600 px-5 py-2.5 text-white transition-colors hover:bg-blue-700 hover:cursor-pointer"
         >
           Rejouer
