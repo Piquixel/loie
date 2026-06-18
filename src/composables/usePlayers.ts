@@ -48,6 +48,7 @@ function movePlayer(playerId: number, delta: number) {
 
   player.lastPosition = player.position
   player.position += delta
+  if (player.position > 63) player.position = 63 - (player.position - 63)
 
   if (player.position < 0) player.position = 0
 
