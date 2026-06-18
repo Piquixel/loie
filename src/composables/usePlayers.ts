@@ -43,6 +43,7 @@ function movePlayer(playerId: number, delta: number) {
 
   player.lastPosition = player.position
   player.position += delta
+  if (player.position > 63) player.position = 63 - (player.position - 63)
   if (cells[player.position]?.hasEffect) cells[player.position]?.effect!(player)
   console.log(currentPlayerIndex.value)
   currentPlayerIndex.value = currentPlayerIndex.value < 3 ? currentPlayerIndex.value + 1 : 0
