@@ -38,7 +38,7 @@
       </div>
 
       <button
-        class="mt-5 self-center rounded bg-blue-600 px-5 py-2.5 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-400"
+        class="mt-5 self-center rounded bg-blue-600 px-5 py-2.5 text-white transition-colors hover:cursor-pointer hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-400"
         name="footer"
         :disabled="!arePlayersValid"
         @click="$emit('startGame', players)"

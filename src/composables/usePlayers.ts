@@ -13,6 +13,10 @@ function getNextPlayerId() {
   return Math.max(...players.value.map((player) => player.id)) + 1
 }
 
+function getCurrentPlayer(): Player {
+  return players.value[currentPlayerIndex.value]!
+}
+
 function initializePlayers(playerList: Player[] = []): void {
   players.value = playerList.map((player, index) => ({
     id: index + 1,
@@ -54,6 +58,10 @@ function moveCurrentPlayer(delta: number) {
   movePlayer(currentPlayer.id, delta)
 }
 
+function resetPlayers() {
+  players.value = []
+}
+
 function checkEnd() {
   return players.value.find((p) => p.position == 63)
 }
@@ -67,5 +75,7 @@ export function usePlayers() {
     movePlayer,
     moveCurrentPlayer,
     checkEnd,
+    getCurrentPlayer,
+    resetPlayers,
   }
 }
