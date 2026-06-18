@@ -1,24 +1,25 @@
-<!-- Component of a player's token -->
 <template>
-  <div class="cell">
-    <PlayerToken v-for="player in playerOnThisCell" :key="player.id" :color="player.color" />
-  </div>
+  <div class="pawn" :style="{ backgroundColor: color }" aria-hidden="true"></div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, type PropType } from 'vue'
 
 export default defineComponent({
   props: {
-    color: String,
+    color: {
+      type: String as PropType<string>,
+      required: true,
+    },
   },
 })
 </script>
 
-<style>
+<style scoped>
 .pawn {
   width: 20px;
   height: 20px;
-  border-radius: 50%;
+  border-radius: 9999px;
+  flex: 0 0 auto;
 }
 </style>
