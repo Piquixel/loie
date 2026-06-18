@@ -66,10 +66,10 @@ export default defineComponent({
 
     playerColorClass(): Record<string, string> {
       return {
-        red: 'bg-red-600',
-        blue: 'bg-blue-600',
-        green: 'bg-green-600',
-        yellow: 'bg-yellow-600',
+        red: 'bg-red-500',
+        blue: 'bg-blue-500',
+        green: 'bg-green-500',
+        yellow: 'bg-yellow-500',
       }
     },
   },
