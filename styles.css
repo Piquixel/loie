@@ -11,3 +11,7 @@
 .teleport {
   @apply text-green-700;
 }
+
+@utility pointer-events-all {
+  pointer-events: all;
+}
