@@ -7,7 +7,7 @@ import type { DiceData } from '@/models/interfaces/dice.interface'
 import { defineComponent } from 'vue'
 
 const { rollTwoDices } = useDice()
-const { moveCurrentPlayer } = usePlayers()
+const { moveCurrentPlayer, checkEnd } = usePlayers()
 
 export default defineComponent({
   data() {
@@ -48,7 +48,9 @@ export default defineComponent({
 
         moveCurrentPlayer(result.total)
 
-        //futur emit OU envois pour move
+        if (checkEnd()) {
+          this.$emit('gameOver')
+        }
       }
 
       this.isRolling = false

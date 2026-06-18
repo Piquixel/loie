@@ -52,6 +52,10 @@ function moveCurrentPlayer(delta: number) {
   movePlayer(currentPlayer.id, delta)
 }
 
+function checkEnd() {
+  return players.value.find((p) => p.position == 63)
+}
+
 export function usePlayers() {
   return {
     players,
@@ -60,5 +64,6 @@ export function usePlayers() {
     addPlayer,
     movePlayer,
     moveCurrentPlayer,
+    checkEnd,
   }
 }
