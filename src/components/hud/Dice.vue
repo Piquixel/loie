@@ -2,8 +2,13 @@
 <!-- Component of a dice -->
 <script lang="ts">
 import useDice from '@/composables/useDice'
+import { usePlayers } from '@/composables/usePlayers'
 import type { DiceData } from '@/models/interfaces/dice.interface'
 import { defineComponent } from 'vue'
+
+const { rollTwoDices } = useDice()
+const { moveCurrentPlayer } = usePlayers()
+
 export default defineComponent({
   data() {
     return {
@@ -11,7 +16,7 @@ export default defineComponent({
       dice: null as ReturnType<typeof useDice> | null,
       dice1: 1,
       dice2: 1,
-      total: 1,
+      total: 0,
     }
   },
 
@@ -36,13 +41,14 @@ export default defineComponent({
       clearInterval(interval)
 
       if (this.dice) {
-        const result: DiceData = this.dice.rollTwoDices()
+        const result: DiceData = rollTwoDices()
         this.dice1 = result.first
         this.dice2 = result.second
         this.total = result.total
 
+        moveCurrentPlayer(result.total)
+
         //futur emit OU envois pour move
-        this.$emit('diceRolled', result)
       }
 
       this.isRolling = false
