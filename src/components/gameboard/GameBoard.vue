@@ -1,11 +1,11 @@
 <!-- Component of the board -->
 <script lang="ts">
-import { cells, squareInit } from '@/services/gameEngine'
+import { cellInit, cells } from '@/services/gameEngine'
 import { defineComponent } from 'vue'
-import BoardSquare from './BoardCell.vue'
+import BoardCell from './BoardCell.vue'
 
 export default defineComponent({
-  components: { BoardSquare },
+  components: { BoardCell },
   data() {
     return {
       cells,
@@ -31,7 +31,7 @@ export default defineComponent({
   },
   mounted() {
     if (this.cells.length === 0) {
-      squareInit()
+      cellInit()
     }
   },
 })
@@ -40,14 +40,14 @@ export default defineComponent({
 <!-- Temporary Gameboard -->
 <template>
   <div class="gameboardContainer">
-    <table class="gameTable">
-      <tbody>
+    <table
+      class="gameTable bg-zinc-800 border border-white/10 text-white rounded-lg overflow-hidden"
+    >
+      <tbody class="grid gap-1 p-1">
         <tr v-for="(row, rowIndex) in gridRows" :key="'row-' + rowIndex">
-          <BoardSquare :row="row" />
+          <BoardCell :row="row" class="grid grid-cols-8 gap-1" />
         </tr>
       </tbody>
     </table>
   </div>
 </template>
-
-<style></style>

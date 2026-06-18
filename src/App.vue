@@ -28,7 +28,11 @@ export default {
 
 <template>
   <MainMenu v-if="!gameLaunched" @startGame="startGame($event)" />
-  <GameBox v-else :players="players" class="inset-0" />
+  <GameBox
+    v-else
+    :players="players"
+    class="flex justify-center items-center h-screen bg-zinc-600"
+  />
 </template>
 
 <style></style>

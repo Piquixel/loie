@@ -12,17 +12,17 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
+  <div class="board-cell-container">
     <td
       v-for="cell in row"
       :key="'cell-' + cell.id"
       :class="[cell.type, { hasEffect: cell.hasEffect }]"
     >
       <div
-        class="flex flex-col aspect-square size-24 border border-neutral-400 justify-between p-1"
+        class="flex flex-col-reverse aspect-square size-24 border border-white/10 rounded-md justify-between p-1"
       >
-        <span class="squareNumber">{{ cell.id }}</span>
-        <span class="text-end" v-if="cell.hasEffect">{{ cell.label }}</span>
+        <span class="text-end squareNumber">{{ cell.id }}</span>
+        <span v-if="cell.hasEffect">{{ cell.label }}</span>
       </div>
     </td>
   </div>

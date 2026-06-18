@@ -5,7 +5,7 @@ import { cellEffects } from './cellEffects'
 
 export const cells: Reactive<BoardCell[]> = reactive([])
 
-export function squareInit() {
+export function cellInit() {
   const newCells: BoardCell[] = Array.from({ length: 64 }, (_key, index) => {
     if (index % 9 === 0 && index !== 0 && index !== 63) {
       return new BoardCell(index, 'bonus', cellEffects.oie, 'Oie')
