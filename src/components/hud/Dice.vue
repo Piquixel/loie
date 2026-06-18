@@ -2,12 +2,12 @@
 <!-- Component of a dice -->
 <script lang="ts">
 import useDice from '@/composables/useDice'
-import { usePlayers } from '@/composables/usePlayers'
+import usePlayers from '@/composables/usePlayers'
 import type { DiceData } from '@/models/interfaces/dice.interface'
 import { defineComponent } from 'vue'
 
 const { rollTwoDices } = useDice()
-const { moveCurrentPlayer, checkEnd } = usePlayers()
+const { moveCurrentPlayer, checkEnd } = usePlayers
 
 export default defineComponent({
   data() {

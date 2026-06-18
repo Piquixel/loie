@@ -1,7 +1,7 @@
 <!-- Component of a square -->
 <script lang="ts">
 import type { BoardCell } from '@/boardCell'
-import { usePlayers } from '@/composables/usePlayers'
+import usePlayers from '@/composables/usePlayers'
 import type { PropType } from 'vue'
 import { computed, defineComponent } from 'vue'
 import PlayerToken from './PlayerToken.vue'
@@ -12,7 +12,7 @@ export default defineComponent({
     row: Array as PropType<BoardCell[]>,
   },
   setup(props) {
-    const { players } = usePlayers()
+    const { players } = usePlayers
 
     const cellsWithPlayers = computed(() => {
       return (props.row ?? []).map((cell) => ({
