@@ -50,8 +50,11 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="game-box-wrapper">
-    <GameBoard />
+  <div>
+    <div
+      class="fixed inset-0 flex items-center justify-center bg-black/70 backdrop-blur-sm p-6"
+    ></div>
+    <GameBoard class="fixed inset-0 top-5 z-10" />
 
     <Hud v-if="gameRunning" :players="players" class="fixed inset-0 z-10" @gameOver="gameOver" />
 

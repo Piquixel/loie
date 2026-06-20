@@ -43,7 +43,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="game-box-wrapper">
+  <div>
     <PlayerCard
       v-for="(player, index) in players"
       :key="player.id"

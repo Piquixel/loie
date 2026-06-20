@@ -1,4 +1,5 @@
 <script lang="ts">
+import ColorBends from './components/external/ColorBends.vue'
 import GameBox from './components/GameBox.vue'
 import MainMenu from './components/landing/MainMenu.vue'
 import usePlayers from './composables/usePlayers'
@@ -12,6 +13,7 @@ export default {
   components: {
     MainMenu,
     GameBox,
+    ColorBends,
   },
 
   data() {
@@ -44,6 +46,21 @@ export default {
 </script>
 
 <template>
+  <ColorBends
+    :colors="['#ff5c7a', '#8a5cff', '#00ffd1']"
+    :rotation="90"
+    :speed="0.2"
+    :scale="1"
+    :frequency="1"
+    :warp-strength="1"
+    :mouse-influence="1"
+    :noise="0.15"
+    :parallax="0.5"
+    :iterations="1"
+    :intensity="1.5"
+    :band-width="6"
+    transparent
+  />
   <MainMenu v-if="!gameLaunched" @startGame="startGame($event)" />
   <GameBox
     v-else
