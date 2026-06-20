@@ -45,6 +45,10 @@ export default defineComponent({
         yellow: 'bg-yellow-500',
       }
     },
+
+    playerInOrder(): Player[] {
+      return [...this.players].sort((a, b) => b.position - a.position)
+    },
   },
 })
 </script>
@@ -68,7 +72,7 @@ export default defineComponent({
 
         <div class="flex flex-col gap-3">
           <div
-            v-for="(player, index) in players"
+            v-for="(player, index) in playerInOrder"
             :key="player.id"
             class="flex items-center justify-between rounded-2xl border border-zinc-700 bg-zinc-800/50 px-5 py-4 transition-all"
             :class="{
