@@ -67,7 +67,7 @@ function movePlayer(playerId: number, delta: number) {
 
       if (standingPlayer && cells.findIndex((c) => c === targetCell) !== 0) {
         standingPlayer.position = player.lastPosition
-        console.log(`${standingPlayer.name} a été repousser à la place de ${player.name}`)
+        console.log(`${standingPlayer.name} a été repoussé à la place de ${player.name}`)
 
         const originalCell = cells[player.lastPosition]
         if (originalCell) {

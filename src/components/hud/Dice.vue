@@ -17,6 +17,7 @@ export default defineComponent({
       dice1: 1,
       dice2: 1,
       total: 0,
+      firstTurn: true,
     }
   },
 
@@ -46,7 +47,16 @@ export default defineComponent({
         this.dice2 = result.second
         this.total = result.total
 
-        moveCurrentPlayer(result.total)
+        if (this.firstTurn && this.total == 9) {
+          const jump = this.dice1 == 3 || this.dice1 == 6 ? 26 : 53
+          moveCurrentPlayer(jump)
+        } else {
+          moveCurrentPlayer(this.total)
+        }
+
+        if (this.getCurrentPlayer.id == 4) {
+          this.firstTurn = false
+        }
 
         if (checkEnd()) {
           console.log('FINIIIIIII', checkEnd()?.name)

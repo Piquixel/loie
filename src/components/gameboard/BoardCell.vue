@@ -29,22 +29,33 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="board-cell-container">
-    <td
-      v-for="cellInfo in cellsWithPlayers"
-      :key="'cell-' + cellInfo.cell.id"
-      :class="[cellInfo.cell.type, { hasEffect: cellInfo.cell.hasEffect }]"
+  <div
+    v-for="cellInfo in cellsWithPlayers"
+    :key="'cell-' + cellInfo.cell.id"
+    :class="[
+      'relative aspect-square size-24 rounded-xl border bg-zinc-900',
+      cellInfo.cell.type,
+      { hasEffect: cellInfo.cell.hasEffect },
+    ]"
+  >
+    <div
+      class="relative aspect-square size-24 rounded-xl border border-zinc-700 bg-zinc-900 transition-all duration-200 hover:-translate-y-1 hover:border-zinc-500 hover:shadow-lg hover:shadow-black/50"
     >
-      <div
-        class="flex flex-col-reverse aspect-square size-24 border border-white/10 rounded-md justify-between p-1"
-      >
-        <div class="flex items-center gap-1 flex-wrap">
-          <PlayerToken v-for="player in cellInfo.players" :key="player.id" :color="player.color" />
-        </div>
-        <span class="text-end squareNumber">{{ cellInfo.cell.id }}</span>
-        <span v-if="cellInfo.cell.hasEffect">{{ cellInfo.cell.label }}</span>
+      <div class="absolute top-2 right-2 text-sm font-semibold text-zinc-300">
+        {{ cellInfo.cell.id }}
       </div>
-    </td>
+
+      <div
+        v-if="cellInfo.cell.hasEffect"
+        class="absolute top-2 left-2 text-xs font-medium text-orange-400 max-w-3/5"
+      >
+        {{ cellInfo.cell.label }}
+      </div>
+
+      <div class="absolute bottom-2 left-2 flex flex-wrap gap-1">
+        <PlayerToken v-for="player in cellInfo.players" :key="player.id" :color="player.color" />
+      </div>
+    </div>
   </div>
 </template>
 
