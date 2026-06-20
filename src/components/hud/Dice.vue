@@ -4,10 +4,11 @@
 import useDice from '@/composables/useDice'
 import usePlayers from '@/composables/usePlayers'
 import type { DiceData } from '@/models/interfaces/dice.interface'
+import { addEventLog } from '@/services/eventLog'
 import { defineComponent } from 'vue'
 
 const { rollTwoDices } = useDice()
-const { moveCurrentPlayer, checkEnd, getCurrentPlayer } = usePlayers
+const { moveCurrentPlayer, checkEnd, getCurrentPlayer, passTurn } = usePlayers
 
 export default defineComponent({
   data() {
@@ -47,21 +48,37 @@ export default defineComponent({
         this.dice2 = result.second
         this.total = result.total
 
+        addEventLog({
+          message: `${this.getCurrentPlayer.name} a obtenu un total de ${this.total}.`,
+          type: 'dice',
+        })
+
+        await new Promise<void>((resolve) => setTimeout(resolve, 500))
+
+        let jumpTo = this.total
         if (this.firstTurn && this.total == 9) {
-          const jump = this.dice1 == 3 || this.dice1 == 6 ? 26 : 53
-          moveCurrentPlayer(jump)
-        } else {
-          moveCurrentPlayer(this.total)
+          jumpTo = this.dice1 == 3 || this.dice1 == 6 ? 26 : 53
+          addEventLog({
+            message: `${this.getCurrentPlayer.name} a obtenu un total de 9 au premier tour et avance à la case ${jumpTo}.`,
+            type: 'effect',
+          })
         }
+
+        await moveCurrentPlayer(jumpTo)
 
         if (this.getCurrentPlayer.id == 4) {
           this.firstTurn = false
         }
 
         if (checkEnd()) {
-          console.log('FINIIIIIII', checkEnd()?.name)
+          addEventLog({
+            message: `${this.getCurrentPlayer.name} a gagné la partie !`,
+            type: 'system',
+          })
 
           this.$emit('gameOver', checkEnd())
+        } else {
+          passTurn()
         }
       }
 
@@ -70,6 +87,10 @@ export default defineComponent({
   },
 
   computed: {
+    checkEnd() {
+      return checkEnd()
+    },
+
     getCurrentPlayer() {
       return getCurrentPlayer()
     },

@@ -1,19 +1,21 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <!-- Main hud component -->
 <script lang="ts">
+import type { logEvent } from '@/models/interfaces/eventLog.interface.ts'
 import type { Player } from '@/models/interfaces/player.interface'
+import eventLogs from '@/services/eventLog.ts'
 import { defineComponent, type PropType } from 'vue'
 import PlayerCard from '../ui/PlayerCard.vue'
 import Dice from './Dice.vue'
+import EventLog from './EventLog.vue'
+
+const { eventLogs: eventLogsList } = eventLogs
 
 export default defineComponent({
   components: {
     PlayerCard,
     Dice,
-  },
-
-  data() {
-    return {}
+    EventLog,
   },
 
   props: {
@@ -31,6 +33,10 @@ export default defineComponent({
         'absolute bottom-4 left-4',
         'absolute bottom-4 right-4',
       ]
+    },
+
+    eventLogsList(): logEvent[] {
+      return eventLogsList.value
     },
   },
 })
@@ -53,6 +59,8 @@ export default defineComponent({
     </button>
 
     <Dice @gameOver="$emit('gameOver', $event)" />
+
+    <EventLog :events="eventLogsList" />
   </div>
 </template>
 

@@ -1,5 +1,8 @@
 <template>
-  <div class="pawn" :style="{ backgroundColor: color }" aria-hidden="true"></div>
+  <div
+    :style="{ backgroundColor: color }"
+    class="size-4 rounded-full border-2 border-white shadow-md"
+  />
 </template>
 
 <script lang="ts">

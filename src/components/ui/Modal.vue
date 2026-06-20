@@ -4,19 +4,27 @@
   <Teleport to="body">
     <div
       v-if="show"
-      class="fixed inset-0 flex items-center justify-center bg-black/50"
+      class="fixed inset-0 flex items-center justify-center bg-black/70 backdrop-blur-sm p-6 z-50"
       @click.self="close"
     >
-      <div class="w-full max-w-2/5 rounded-lg bg-zinc-700 p-5 text-white flex flex-col gap-10">
-        <slot name="header">
-          <h2 class="mt-0 text-2xl font-semibold">
-            {{ title }}
-          </h2>
-        </slot>
+      <div
+        class="w-full max-w-4xl rounded-3xl border border-zinc-700 bg-zinc-900/95 backdrop-blur-md shadow-2xl shadow-black/60 text-white overflow-hidden"
+      >
+        <div class="border-b border-zinc-700 px-8 py-5">
+          <slot name="header">
+            <h2 class="text-2xl font-bold tracking-wide">
+              {{ title }}
+            </h2>
+          </slot>
+        </div>
 
-        <slot />
+        <div class="p-8">
+          <slot />
+        </div>
 
-        <slot name="footer" />
+        <div v-if="$slots.footer" class="border-t border-zinc-700 px-8 py-5">
+          <slot name="footer" />
+        </div>
       </div>
     </div>
   </Teleport>

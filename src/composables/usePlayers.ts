@@ -1,8 +1,11 @@
 //Centralize player logic (add, move, reset, etc)
 
 import type { Player } from '@/models/interfaces/player.interface'
+import { addEventLog } from '@/services/eventLog'
 import { cells } from '@/services/gameEngine'
 import { ref, type Ref } from 'vue'
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 const players: Ref<Player[]> = ref([])
 const currentPlayerIndex = ref(0)
@@ -39,7 +42,7 @@ function addPlayer(name: string, color: string): void {
   })
 }
 
-function movePlayer(playerId: number, delta: number) {
+async function movePlayer(playerId: number, delta: number) {
   const player = players.value.find((p) => p.id === playerId)
   if (!player) {
     return
@@ -51,7 +54,28 @@ function movePlayer(playerId: number, delta: number) {
   }
 
   player.lastPosition = player.position
-  player.position += delta
+  let reste = 0
+  if (delta < 0) {
+    for (let i = 0; i < -delta; i++) {
+      player.position--
+    }
+  } else {
+    for (let i = 0; i < delta; i++) {
+      player.position++
+      await sleep(250)
+      if (player.position >= 63) {
+        reste = delta - i - 1
+        break
+      }
+    }
+  }
+
+  if (reste > 0) {
+    for (let i = 0; i < reste; i++) {
+      player.position--
+      await sleep(250)
+    }
+  }
 
   if (player.position > 63) player.position = 63 - (player.position - 63)
 
@@ -67,7 +91,10 @@ function movePlayer(playerId: number, delta: number) {
 
       if (standingPlayer && cells.findIndex((c) => c === targetCell) !== 0) {
         standingPlayer.position = player.lastPosition
-        console.log(`${standingPlayer.name} a été repoussé à la place de ${player.name}`)
+        addEventLog({
+          message: `${standingPlayer.name} a été repoussé à la place de ${player.name}`,
+          type: 'move',
+        })
 
         const originalCell = cells[player.lastPosition]
         if (originalCell) {
@@ -77,21 +104,23 @@ function movePlayer(playerId: number, delta: number) {
 
       targetCell.player = player.id
     }
+    addEventLog({
+      message: `${player.name} est arrivé à la case ${player.position}.`,
+      type: 'move',
+    })
+
     targetCell.onLand(player)
   }
   if (player.position > 63) player.position = 63 - (player.position - 63) // double check après les effet de case (case de l'oie 54)
-
-  currentPlayerIndex.value =
-    currentPlayerIndex.value < players.value.length - 1 ? currentPlayerIndex.value + 1 : 0
 }
 
-function moveCurrentPlayer(delta: number) {
+async function moveCurrentPlayer(delta: number) {
   const currentPlayer = players.value[currentPlayerIndex.value]
   if (!currentPlayer) {
     return
   }
 
-  movePlayer(currentPlayer.id, delta)
+  await movePlayer(currentPlayer.id, delta)
 }
 
 function resetPlayers() {
@@ -100,6 +129,11 @@ function resetPlayers() {
 
 function checkEnd() {
   return players.value.find((p) => p.position == 63)
+}
+
+function passTurn() {
+  currentPlayerIndex.value =
+    currentPlayerIndex.value < players.value.length - 1 ? currentPlayerIndex.value + 1 : 0
 }
 
 export default {
@@ -112,4 +146,5 @@ export default {
   checkEnd,
   getCurrentPlayer,
   resetPlayers,
+  passTurn,
 }

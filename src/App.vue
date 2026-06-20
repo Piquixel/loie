@@ -3,6 +3,7 @@ import GameBox from './components/GameBox.vue'
 import MainMenu from './components/landing/MainMenu.vue'
 import usePlayers from './composables/usePlayers'
 import type { Player } from './models/interfaces/player.interface'
+import { clearEventLogs } from './services/eventLog'
 import { Storage } from './services/storageManager.ts'
 
 const { players: playersRef, initializePlayers, resetPlayers } = usePlayers
@@ -35,6 +36,7 @@ export default {
     restartGame() {
       Storage.clear()
       resetPlayers()
+      clearEventLogs()
       this.gameLaunched = false
     },
   },

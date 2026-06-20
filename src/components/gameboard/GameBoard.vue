@@ -39,7 +39,7 @@ export default defineComponent({
 
 <!-- Temporary Gameboard -->
 <template>
-  <div class="relative p-6 mt-5 mx-auto">
+  <div class="p-6 mt-5 mx-auto">
     <!-- Halo subtil derrière le plateau -->
     <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
       <div class="w-225 h-225 rounded-full bg-white/5 blur-3xl" />
@@ -47,13 +47,13 @@ export default defineComponent({
 
     <!-- Plateau -->
     <div
-      class="relative bg-zinc-900/80 backdrop-blur-sm border border-zinc-700 rounded-3xl p-4 shadow-2xl shadow-black/50 w-250 mx-auto"
+      class="bg-zinc-900/80 backdrop-blur-sm border border-zinc-700 rounded-3xl p-4 shadow-2xl shadow-black/50 max-w-fit mx-auto"
     >
-      <div class="flex flex-col gap-2">
+      <div class="flex flex-col gap-2 items-center">
         <div
           v-for="(row, rowIndex) in gridRows"
           :key="'row-' + rowIndex"
-          class="grid grid-cols-8 gap-1"
+          class="grid grid-cols-8 gap-4"
         >
           <BoardCell :row="row" />
         </div>

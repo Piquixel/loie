@@ -2,23 +2,27 @@
 
 import usePlayers from '@/composables/usePlayers'
 import type { Player } from '@/models/interfaces/player.interface'
+import { addEventLog } from './eventLog'
 
 export const cellEffects = {
   oie: (player: Player) => {
-    console.log(`Case Oie! Le joueur ${player.name} double son lancer.`)
     const displacementValue = player.position - player.lastPosition
+    addEventLog({
+      message: `Case Oie ! ${player.name} avance à nouveau de ${displacementValue} cases.`,
+      type: 'effect',
+    })
     usePlayers.movePlayer(player.id, displacementValue)
   },
   pont: (player: Player) => {
-    console.log('Pont! Téléportation à la case 12.')
+    addEventLog({ message: `Pont ! ${player.name} va à la case 12.`, type: 'effect' })
     usePlayers.movePlayer(player.id, 6)
   },
   labyrinthe: (player: Player) => {
-    console.log('Labyrinthe! Recul de 12 cases.')
+    addEventLog({ message: `Labyrinthe ! ${player.name} recule de 12 cases.`, type: 'effect' })
     usePlayers.movePlayer(player.id, -12)
   },
   mort: (player: Player) => {
-    console.log('Tête de Mort! Retour à la case 0.')
+    addEventLog({ message: `Tête de Mort ! ${player.name} retourne à la case 0.`, type: 'effect' })
     usePlayers.movePlayer(player.id, -58)
   },
 }
