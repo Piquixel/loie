@@ -4,6 +4,7 @@
 import useDice from '@/composables/useDice'
 import * as usePlayers from '@/composables/usePlayers'
 import type { DiceData } from '@/models/interfaces/dice.interface'
+import { isOccupied } from '@/services/dice'
 import { addEventLog } from '@/services/eventLog'
 import { defineComponent } from 'vue'
 
@@ -14,6 +15,7 @@ export default defineComponent({
   data() {
     return {
       isRolling: false,
+      isOccupied: isOccupied.value,
       dice: null as ReturnType<typeof useDice> | null,
       dice1: 1,
       dice2: 1,
@@ -30,6 +32,7 @@ export default defineComponent({
     async roll(): Promise<void> {
       if (this.isRolling) return
       this.isRolling = true
+      isOccupied.value = true
 
       const interval = setInterval(() => {
         this.dice1 = Math.floor(Math.random() * 6) + 1
@@ -117,7 +120,7 @@ export default defineComponent({
     </div>
     <button
       @click="roll"
-      :disabled="isRolling"
+      :disabled="isRolling || isOccupied"
       class="cursor-pointer flex flex-col items-center rounded-xl bg-zinc-800 p-4 text-white shadow-lg transition hover:bg-zinc-700 hover:cursor-pointer"
     >
       <span class="text-3xl">🎲</span>

@@ -1,6 +1,7 @@
 //Centralize player logic (add, move, reset, etc)
 
 import type { Player } from '@/models/interfaces/player.interface'
+import { isOccupied } from '@/services/dice'
 import { addEventLog } from '@/services/eventLog'
 import { cells } from '@/services/gameEngine'
 import { ref, type Ref } from 'vue'
@@ -72,6 +73,8 @@ export async function movePlayer(playerId: number, delta: number) {
       }
     }
   }
+
+  isOccupied.value = false
 
   if (reste > 0) {
     for (let i = 0; i < reste; i++) {
