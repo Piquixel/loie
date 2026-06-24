@@ -51,6 +51,7 @@ export class Cell {
 | Case 6 | Téléport | Pont | Déplace immédiatement le joueur à la case 12. |
 | Case 19 | Malus | Hôtel | Passe le tour du joueur étant tombé dessus. |
 | Case 42 | Malus | Labyrinthe | Recul forcé de 12 cases (renvoie à la case 30). |
+| Case 51 | Malus | Puits | Doit attendre 2 tours avant de pouvoir rejouer. |
 | Case 58 | Malus | Tête de Mort | Renvoie immédiatement à la case 0. |
 
 <!-- ## III. Gestion de l'État Global (State Management) -->
@@ -62,7 +63,7 @@ export class Cell {
 - [X] Création du `MainMenu.vue` et de la logique de configuration des joueurs.
 - [X] Développement du composant générique `Modal.vue` (avec slots).
 - [X] Intégration et design de l'ATH (`Hud.vue`) aux quatres coins du plateau.
-- [ ] Développement de la `GameBox.vue` et du système de lancer de Dé (`Dice.vue` avec génération de nombre aléatoire 1-6).
+- [X] Développement de la `GameBox.vue` et du système de lancer de Dé (`Dice.vue` avec génération de nombre aléatoire 1-6).
 
 ### :test_tube: Thomas (Logique du Plateau & Rendu)
 
@@ -72,8 +73,8 @@ export class Cell {
 
 ### :game_die: Nicolas (Gameplay & Entités)
 
-- [ ] Modélisation des joueurs et création du composant `Pawn.vue` (Pion).
-- [ ] Gestion de la logique d'affichage des pions à *l'intérieur* d'une même case (gérer les chevauchements si deux joueurs sont sur la même case).
+- [X] Modélisation des joueurs et création du composant `Pawn.vue` (Pion).
+- [X] Gestion de la logique d'affichage des pions à *l'intérieur* d'une même case (gérer les chevauchements si deux joueurs sont sur la même case).
 
 ## IV. Schémas
 

@@ -71,7 +71,12 @@ export async function movePlayer(playerId: number, delta: number) {
     oldCell.player = undefined
   }
 
-  if (player.position % 9 !== 0 || player.position === 0) player.lastPosition = player.position
+  if (
+    (player.position % 9 !== 0 || player.position === 0) &&
+    player.position !== 6 &&
+    player.position !== 42
+  )
+    player.lastPosition = player.position
   let reste = 0
   if (delta < 0) {
     for (let i = 0; i < -delta; i++) {
@@ -142,18 +147,6 @@ export async function movePlayer(playerId: number, delta: number) {
     targetCell.onLand(player)
   }
   if (player.position > 63) player.position = 63 - (player.position - 63) // double check après les effet de case (case de l'oie 54)
-}
-
-window.debugPosition = (playerId: number, cell: number, instant = false): void => {
-  const player = players.value.find((p) => p.id === playerId)
-  if (!player) return
-  const delta: number = cell - player?.position
-
-  if (instant) {
-    player.position = cell
-    return
-  }
-  movePlayer(playerId, delta)
 }
 
 export async function moveCurrentPlayer(delta: number) {

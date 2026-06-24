@@ -28,10 +28,10 @@ export const cellEffects = {
     addEventLog({ message: `Labyrinthe ! ${player.name} recule de 12 cases.`, type: 'effect' })
     usePlayers.movePlayer(player.id, -12)
   },
-  puit: (player: Player) => {
+  puits: (player: Player) => {
     player.waitTurn = 2
     addEventLog({
-      message: `Case Puit ! ${player.name} est tombé dans un puit. Il mettra 2 tours pour en sortir`,
+      message: `Case Puits ! ${player.name} est tombé dans un puits. Il mettra 2 tours pour en sortir`,
       type: 'effect',
     })
   },
