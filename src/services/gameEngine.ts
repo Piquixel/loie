@@ -18,6 +18,8 @@ export function cellInit() {
         return new BoardCell(index, 'malus', cellEffects.hotel, 'Hôtel')
       case 42:
         return new BoardCell(index, 'malus', cellEffects.labyrinthe, 'Labyrinthe')
+      case 51:
+        return new BoardCell(index, 'malus', cellEffects.puit, 'Puit')
       case 58:
         return new BoardCell(index, 'malus', cellEffects.mort, 'Tête de Mort')
       default:
