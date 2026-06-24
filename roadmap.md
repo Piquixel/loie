@@ -39,6 +39,7 @@ export class Cell {
     this.type = type; // 'neutral', 'bonus', 'malus', 'teleport'
     this.effect = effect; // Fonction
     this.label = label; // Nom de la case (ex: "Labyrinthe")
+    this.player = player; // Joueur présent sur la case
   }
 }
 ```
