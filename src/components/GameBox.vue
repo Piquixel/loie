@@ -1,11 +1,15 @@
 <!-- Main game's component, the only components that will not be inside is home/landing -->
 <script lang="ts">
+import usePlayers from '@/composables/usePlayers.ts'
 import type { Player } from '@/models/interfaces/player.interface'
 import { cells } from '@/services/gameEngine'
+import { Storage } from '@/services/storageManager.ts'
 import { defineComponent, type PropType } from 'vue'
 import GameBoard from './gameboard/GameBoard.vue'
 import Hud from './hud/Hud.vue'
 import Modal from './ui/Modal.vue'
+
+const { currentPlayerIndex } = usePlayers
 
 export default defineComponent({
   components: { GameBoard, Hud, Modal },
@@ -34,6 +38,13 @@ export default defineComponent({
       this.gameRunning = true
       this.$emit('restartGame')
     },
+
+    saveGame() {
+      Storage.save(this.players)
+      Storage.saveCurrentPlayer(usePlayers.currentPlayerIndex.value)
+      this.gameRunning = false
+      this.$emit('gameSaved')
+    },
   },
 
   computed: {
@@ -60,7 +71,13 @@ export default defineComponent({
     ></div>
     <GameBoard class="fixed inset-0 top-5 z-10" />
 
-    <Hud v-if="gameRunning" :players="players" class="fixed inset-0 z-10" @gameOver="gameOver" />
+    <Hud
+      v-if="gameRunning"
+      :players="players"
+      class="fixed inset-0 z-10"
+      @gameOver="gameOver"
+      @saveGame="saveGame"
+    />
 
     <Modal title="Partie terminée" :show="!gameRunning && winner != ''">
       <h3 class="text-center text-4xl font-bold text-yellow-400">🎉 {{ winner }}</h3>

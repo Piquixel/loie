@@ -4,6 +4,7 @@ import type { Player } from '@/models/interfaces/player.interface'
 import { isOccupied } from '@/services/dice'
 import { addEventLog } from '@/services/eventLog'
 import { cells } from '@/services/gameEngine'
+import { Storage } from '@/services/storageManager.ts'
 import { ref, type Ref } from 'vue'
 
 export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
@@ -32,6 +33,20 @@ export function initializePlayers(playerList: Player[] = []): void {
     waitTurn: 0,
   }))
   currentPlayerIndex.value = 0
+}
+
+export function initializePlayersFromStorage(): void {
+  const savedPlayers = Storage.load()
+  console.log(savedPlayers)
+  if (savedPlayers) {
+    players.value = savedPlayers as Player[]
+    const savedCurrent = Storage.loadCurrentPlayer()
+    if (savedCurrent !== false) {
+      currentPlayerIndex.value = savedCurrent
+    } else {
+      currentPlayerIndex.value = 1
+    }
+  }
 }
 
 export function addPlayer(name: string, color: string): void {
@@ -192,4 +207,5 @@ export default {
   resetPlayers,
   passTurn,
   checkIfCanMove,
+  initializePlayersFromStorage,
 }
