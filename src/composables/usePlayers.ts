@@ -71,7 +71,12 @@ export async function movePlayer(playerId: number, delta: number) {
     oldCell.player = undefined
   }
 
-  if (player.position % 9 !== 0 || player.position === 0) player.lastPosition = player.position
+  if (
+    (player.position % 9 !== 0 || player.position === 0) &&
+    player.position !== 6 &&
+    player.position !== 42
+  )
+    player.lastPosition = player.position
   let reste = 0
   if (delta < 0) {
     for (let i = 0; i < -delta; i++) {
