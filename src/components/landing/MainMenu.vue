@@ -9,9 +9,19 @@
 
     <template #footer>
       <div class="flex justify-end gap-4">
-        <button class="btn-secondary" @click="continueGame">Continuer</button>
+        <button
+          class="rounded-xl bg-blue-600 px-8 py-3 font-semibold transition-all hover:bg-blue-500 hover:shadow-lg hover:cursor-pointer hover:shadow-blue-500/20 disabled:bg-zinc-700 disabled:text-zinc-400 disabled:shadow-none"
+          @click="continueGame"
+        >
+          Continuer
+        </button>
 
-        <button class="btn-primary" @click="openNewGameModal">Nouvelle partie</button>
+        <button
+          class="rounded-xl bg-blue-600 px-8 py-3 font-semibold transition-all hover:bg-blue-500 hover:shadow-lg hover:cursor-pointer hover:shadow-blue-500/20 disabled:bg-zinc-700 disabled:text-zinc-400 disabled:shadow-none"
+          @click="openNewGameModal"
+        >
+          Nouvelle partie
+        </button>
       </div>
     </template>
   </Modal>
