@@ -69,7 +69,7 @@ export default defineComponent({
     <div
       class="fixed inset-0 flex items-center justify-center bg-black/70 backdrop-blur-sm p-6"
     ></div>
-    <GameBoard class="fixed inset-0 top-5 z-10" />
+    <GameBoard class="fixed mx-auto top-5 z-10" />
 
     <Hud
       v-if="gameRunning"
