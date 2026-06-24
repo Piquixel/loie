@@ -8,6 +8,7 @@ export class BoardCell {
     public readonly type: cellType = 'neutral',
     public readonly effect: ((player: Player) => void) | null = null,
     public readonly label: string = '',
+    public readonly desc: string = '',
     public player: number | undefined = undefined,
   ) {}
 

@@ -29,7 +29,10 @@ export default defineComponent({
 </script>
 
 <template>
-  <div v-for="cellInfo in cellsWithPlayers" :key="'cell-' + cellInfo.cell.id">
+  <div v-for="cellInfo in cellsWithPlayers" :key="'cell-' + cellInfo.cell.id" class="tooltip">
+    <span class="tooltiptext -translate-y-10" v-if="cellInfo.cell.desc !== ''">{{
+      cellInfo.cell.desc
+    }}</span>
     <div
       class="relative size-24 aspect-square rounded-xl bg-linear-to-b from-zinc-800 to-zinc-900 border border-zinc-700 transition-all duration-200 hover:-translate-y-1 hover:border-zinc-500 hover:shadow-lg hover:shadow-black/40 flex justify-center items-center"
     >
@@ -59,4 +62,27 @@ export default defineComponent({
   </div>
 </template>
 
-<style></style>
+<style>
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.tooltiptext {
+  visibility: hidden;
+  min-width: 200px;
+  background-color: hsla(0, 0%, 0%, 0.5);
+  color: #fff;
+  text-align: center;
+  border-radius: 15px;
+  padding: 5px 5px;
+  position: absolute;
+  z-index: 1;
+  transition: all ease-in 200ms;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+</style>

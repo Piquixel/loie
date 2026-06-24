@@ -109,7 +109,7 @@ export default defineComponent({
       class="flex flex-col items-center rounded-xl p-4 text-white shadow-lg transition"
       :style="playerColorClass(getCurrentPlayer.color)"
     >
-      <span class="mix-blend-difference">Au tour de</span>
+      <span class="mix-blend-color-dodge">Au tour de</span>
       <span class="mix-blend-difference">{{ getCurrentPlayer.name }}</span>
     </div>
     <button

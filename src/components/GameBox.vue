@@ -74,7 +74,7 @@ export default defineComponent({
     <Hud
       v-if="gameRunning"
       :players="players"
-      class="fixed inset-0 z-10"
+      class="fixed inset-0"
       @gameOver="gameOver"
       @saveGame="saveGame"
     />
