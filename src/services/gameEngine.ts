@@ -14,6 +14,8 @@ export function cellInit() {
     switch (index) {
       case 6:
         return new BoardCell(index, 'teleport', cellEffects.pont, 'Pont')
+      case 19:
+        return new BoardCell(index, 'malus', cellEffects.hotel, 'Hôtel')
       case 42:
         return new BoardCell(index, 'malus', cellEffects.labyrinthe, 'Labyrinthe')
       case 58:

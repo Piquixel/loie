@@ -4,4 +4,5 @@ export interface Player {
   color: string
   position: number
   lastPosition: number
+  waitTurn: number
 }

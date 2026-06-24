@@ -13,6 +13,13 @@ export const cellEffects = {
     })
     usePlayers.movePlayer(player.id, Math.abs(displacementValue))
   },
+  hotel: (player: Player) => {
+    player.waitTurn = 2
+    addEventLog({
+      message: `Case Hôtel ! ${player.name} se pose tranquille à l'hôtel pour 2 tours..`,
+      type: 'effect',
+    })
+  },
   pont: (player: Player) => {
     addEventLog({ message: `Pont ! ${player.name} va à la case 12.`, type: 'effect' })
     usePlayers.movePlayer(player.id, 6)

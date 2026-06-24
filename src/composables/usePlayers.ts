@@ -28,6 +28,7 @@ export function initializePlayers(playerList: Player[] = []): void {
     color: player.color,
     position: 0,
     lastPosition: 0,
+    waitTurn: 0,
   }))
   currentPlayerIndex.value = 0
 }
@@ -39,6 +40,7 @@ export function addPlayer(name: string, color: string): void {
     color,
     position: 0,
     lastPosition: 0,
+    waitTurn: 0,
   })
 }
 
@@ -92,10 +94,19 @@ export async function movePlayer(playerId: number, delta: number) {
 
       if (standingPlayer && cells.findIndex((c) => c === targetCell) !== 0) {
         movePlayer(standingPlayer.id, -(player.position - player.lastPosition))
-        addEventLog({
-          message: `${standingPlayer.name} a été repoussé à la place de ${player.name}`,
-          type: 'move',
-        })
+
+        if (standingPlayer.position == 19) {
+          standingPlayer.waitTurn = 0
+          addEventLog({
+            message: `Rabat joie ! ${standingPlayer.name} a s'est fait éjecter de l'hotel par ${player.name}`,
+            type: 'effect',
+          })
+        } else {
+          addEventLog({
+            message: `${standingPlayer.name} a été repoussé à la place de ${player.name}`,
+            type: 'move',
+          })
+        }
 
         const originalCell = cells[player.lastPosition]
         if (originalCell) {
@@ -147,4 +158,35 @@ export function checkEnd() {
 export function passTurn() {
   currentPlayerIndex.value =
     currentPlayerIndex.value < players.value.length - 1 ? currentPlayerIndex.value + 1 : 0
+  const currentPlayer = players.value[currentPlayerIndex.value]
+  if (!checkIfCanMove(currentPlayer!)) {
+    passTurn()
+  }
+}
+
+function checkIfCanMove(player: Player): boolean {
+  if (player.waitTurn > 0) {
+    player.waitTurn -= 1
+    addEventLog({
+      message: `${player.name} profite encore de l'hôtel pendant ${player.waitTurn} tour(s).`,
+      type: 'effect',
+    })
+    return false
+  }
+
+  return true
+}
+
+export default {
+  players,
+  currentPlayerIndex,
+  initializePlayers,
+  addPlayer,
+  movePlayer,
+  moveCurrentPlayer,
+  checkEnd,
+  getCurrentPlayer,
+  resetPlayers,
+  passTurn,
+  checkIfCanMove,
 }
