@@ -214,7 +214,7 @@ const init = () => {
   renderer.domElement.style.display = 'block'
   container.appendChild(renderer.domElement)
 
-  const clock = new THREE.Timer()
+  const clock = new THREE.Clock()
 
   const handleResize = () => {
     const w = container.clientWidth || 1
@@ -235,7 +235,7 @@ const init = () => {
 
   const loop = () => {
     const dt = clock.getDelta()
-    const elapsed = clock.getElapsed()
+    const elapsed = clock.getElapsedTime()
     material.uniforms.uTime!.value = elapsed
 
     const deg = (rotationRef.value % 360) + autoRotateRef.value * elapsed
