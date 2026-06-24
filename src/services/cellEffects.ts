@@ -11,7 +11,7 @@ export const cellEffects = {
       message: `Case Oie ! ${player.name} avance à nouveau de ${displacementValue} cases.`,
       type: 'effect',
     })
-    usePlayers.movePlayer(player.id, displacementValue)
+    usePlayers.movePlayer(player.id, Math.abs(displacementValue))
   },
   pont: (player: Player) => {
     addEventLog({ message: `Pont ! ${player.name} va à la case 12.`, type: 'effect' })
