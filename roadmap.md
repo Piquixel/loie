@@ -49,6 +49,7 @@ export class Cell {
 | --- | --- | --- | --- |
 | Multiples de 9 | Bonus | Oie | Double la valeur du dé lancé. |
 | Case 6 | Téléport | Pont | Déplace immédiatement le joueur à la case 12. |
+| Case 19 | Malus | Hôtel | Passe le tour du joueur étant tombé dessus. |
 | Case 42 | Malus | Labyrinthe | Recul forcé de 12 cases (renvoie à la case 30). |
 | Case 58 | Malus | Tête de Mort | Renvoie immédiatement à la case 0. |
 

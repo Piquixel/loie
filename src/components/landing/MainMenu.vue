@@ -23,25 +23,22 @@
 
             <span class="font-semibold text-zinc-100"> Joueur {{ index + 1 }} </span>
           </div>
-          <label class="text-white" for="pseudo">Pseudo:</label>
+          <label class="text-white" :for="'nickname-' + Number(index + 1)">Pseudo:</label>
 
           <input
             v-model="player.name"
+            :id="'nickname-' + Number(index + 1)"
             type="text"
             class="w-full rounded-lg border border-zinc-600 bg-zinc-900 px-3 py-2 text-white focus:border-blue-500 focus:outline-none"
           />
 
-          <label class="text-white" for="color">Couleur:</label>
-
-          <select
+          <label class="text-white" :for="'color-' + Number(index + 1)">Couleur:</label>
+          <input
+            type="color"
+            :id="'color-' + Number(index + 1)"
+            class="appearance-none size-10 rounded-full border-zinc-600 border cursor-pointer block"
             v-model="player.color"
-            class="w-full rounded-lg border border-zinc-600 bg-zinc-900 px-3 py-2 text-white focus:border-blue-500 focus:outline-none"
-          >
-            <option class="text-red-500" value="red">Rouge</option>
-            <option class="text-blue-500" value="blue">Bleu</option>
-            <option class="text-yellow-400" value="yellow">Jaune</option>
-            <option class="text-green-500" value="green">Vert</option>
-          </select>
+          />
         </div>
       </div>
       <button
@@ -69,10 +66,10 @@ export default defineComponent({
   data() {
     return {
       players: [
-        { name: 'Player 1', color: 'red' },
-        { name: 'Player 2', color: 'blue' },
-        { name: 'Player 3', color: 'yellow' },
-        { name: 'Player 4', color: 'green' },
+        { name: 'Player 1', color: '#FF0000' },
+        { name: 'Player 2', color: '#0000FF' },
+        { name: 'Player 3', color: '#FFFF00' },
+        { name: 'Player 4', color: '#00FF00' },
       ] as Player[],
     }
   },
@@ -80,7 +77,9 @@ export default defineComponent({
   computed: {
     arePlayersValid() {
       const names = this.players.map((p) => p.name.trim())
-      const colors = this.players.map((p) => p.color)
+      const colors = this.players.map((p) => p.color.toUpperCase())
+
+      console.log(this.players.map((p) => p.color))
 
       const hasEmptyName = names.some((name) => name === '')
       const hasDuplicateName = new Set(names).size !== names.length
@@ -91,6 +90,16 @@ export default defineComponent({
   },
 })
 </script>
+
+<style>
+input[type='color']::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+input[type='color']::-webkit-color-swatch {
+  border: none;
+}
+</style>
 
 <!-- <style scoped>
 .playersForm {

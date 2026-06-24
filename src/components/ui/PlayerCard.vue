@@ -6,13 +6,6 @@ import { defineComponent, type PropType } from 'vue'
 
 const { getCurrentPlayer } = usePlayers
 
-const PLAYER_COLORS: Record<string, string> = {
-  red: 'bg-red-500',
-  blue: 'bg-blue-500',
-  yellow: 'bg-yellow-400',
-  green: 'bg-green-500',
-}
-
 export default defineComponent({
   props: {
     player: {
@@ -21,22 +14,23 @@ export default defineComponent({
     },
   },
 
+  methods: {
+    playerColorClass(hex: string) {
+      return { boxShadow: `0 0 0 2px ${hex}` }
+    },
+
+    playerColor(hex: string) {
+      return { backgroundColor: hex }
+    },
+  },
+
   computed: {
-    colorClass(): string | undefined {
-      return PLAYER_COLORS[this.player.color]
+    colorClass() {
+      return this.playerColor(this.player.color)
     },
 
     getCurrentPlayer() {
       return getCurrentPlayer()
-    },
-
-    playerColorClass(): Record<string, string> {
-      return {
-        red: 'ring-red-500 shadow-red-500/20',
-        blue: 'ring-blue-500 shadow-blue-500/20',
-        green: 'ring-green-500 shadow-green-500/20',
-        yellow: 'ring-yellow-500 shadow-yellow-500/20',
-      }
     },
   },
 })
@@ -45,11 +39,9 @@ export default defineComponent({
 <template>
   <div
     class="flex items-center gap-4 rounded-lg bg-zinc-800 p-4"
-    :class="[
-      getCurrentPlayer.id === player.id ? `ring-2 shadow-lg ${playerColorClass[player.color]}` : '',
-    ]"
+    :style="getCurrentPlayer.id === player.id ? playerColorClass(player.color) : ''"
   >
-    <div :class="['h-8 w-8 rounded-full', colorClass]" />
+    <div class="h-8 w-8 rounded-full" :style="playerColor(player.color)" />
 
     <div>
       <h3 class="text-white">
