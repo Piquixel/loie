@@ -65,3 +65,82 @@ export default defineComponent({
   },
 })
 </script>
+
+<!-- <style scoped>
+.playersForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-size: 1.2rem;
+}
+
+.playerInput {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+}
+
+.playerInput label {
+  color: white;
+}
+
+.footer {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  justify-self: center;
+
+  &:hover {
+    background-color: #0056b3;
+    transition: background-color 0.3s;
+  }
+}
+
+.footer:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.color-option {
+  background-color: rgb(58, 58, 58);
+  cursor: pointer;
+
+  &.red {
+    color: red !important;
+  }
+
+  &.blue {
+    color: blue !important;
+  }
+
+  &.yellow {
+    color: yellow !important;
+  }
+
+  &.green {
+    color: green !important;
+  }
+
+  &:selected {
+    font-weight: bold;
+  }
+
+  &:hover {
+    filter: brightness(1.2);
+    transition: filter 0.3s;
+  }
+}
+
+select:hover,
+option:hover {
+  filter: brightness(1.2);
+  transition: filter 0.3s;
+  background-color: inherit;
+  cursor: pointer;
+}
+</style> -->

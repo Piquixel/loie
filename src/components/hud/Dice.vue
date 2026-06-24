@@ -87,6 +87,9 @@ export default defineComponent({
 
       this.isRolling = false
     },
+    playerColorClass(hex: string) {
+      return { backgroundColor: hex }
+    },
   },
 
   computed: {
@@ -97,15 +100,6 @@ export default defineComponent({
     getCurrentPlayer() {
       return getCurrentPlayer()
     },
-
-    playerColorClass(): Record<string, string> {
-      return {
-        red: 'bg-red-500',
-        blue: 'bg-blue-500',
-        green: 'bg-green-500',
-        yellow: 'bg-yellow-500',
-      }
-    },
   },
 })
 </script>
@@ -113,7 +107,7 @@ export default defineComponent({
   <div class="absolute top-1/2 right-6 flex -translate-y-1/2 flex-col gap-4">
     <div
       class="flex flex-col items-center rounded-xl p-4 text-white shadow-lg transition"
-      :class="playerColorClass[getCurrentPlayer!.color]"
+      :style="playerColorClass(getCurrentPlayer.color)"
     >
       <span>Au tour de</span>
       <span>{{ getCurrentPlayer.name }}</span>
