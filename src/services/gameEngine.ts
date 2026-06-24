@@ -19,7 +19,7 @@ export function cellInit() {
       case 42:
         return new BoardCell(index, 'malus', cellEffects.labyrinthe, 'Labyrinthe')
       case 51:
-        return new BoardCell(index, 'malus', cellEffects.puit, 'Puit')
+        return new BoardCell(index, 'malus', cellEffects.puits, 'Puits')
       case 58:
         return new BoardCell(index, 'malus', cellEffects.mort, 'Tête de Mort')
       default:
