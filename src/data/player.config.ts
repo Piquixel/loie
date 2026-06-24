@@ -6,7 +6,7 @@ const players = ref([
   {
     id: 1,
     name: 'Player 1',
-    color: 'red',
+    color: '#ff0000',
     position: '0',
   },
 ])
