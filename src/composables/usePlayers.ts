@@ -57,6 +57,7 @@ export async function movePlayer(playerId: number, delta: number) {
   let reste = 0
   if (delta < 0) {
     for (let i = 0; i < -delta; i++) {
+      await sleep(250)
       player.position--
     }
   } else {
@@ -90,7 +91,7 @@ export async function movePlayer(playerId: number, delta: number) {
       const standingPlayer = players.value.find((p) => p.id === targetCell.player)
 
       if (standingPlayer && cells.findIndex((c) => c === targetCell) !== 0) {
-        standingPlayer.position = player.lastPosition
+        movePlayer(standingPlayer.id, -(player.position - player.lastPosition))
         addEventLog({
           message: `${standingPlayer.name} a été repoussé à la place de ${player.name}`,
           type: 'move',
