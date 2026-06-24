@@ -32,6 +32,12 @@ export default {
   methods: {
     startGame(players: Player[]): void {
       initializePlayers(players)
+      clearEventLogs()
+      this.gameLaunched = true
+    },
+
+    resumeGame() {
+      usePlayers.initializePlayersFromStorage()
       this.gameLaunched = true
     },
 
@@ -39,6 +45,10 @@ export default {
       Storage.clear()
       resetPlayers()
       clearEventLogs()
+      this.gameLaunched = false
+    },
+
+    gameSaved() {
       this.gameLaunched = false
     },
   },
@@ -61,12 +71,13 @@ export default {
     :band-width="6"
     transparent
   />
-  <MainMenu v-if="!gameLaunched" @startGame="startGame($event)" />
+  <MainMenu v-if="!gameLaunched" @startGame="startGame($event)" @resumeSavedGame="resumeGame()" />
   <GameBox
     v-else
     :players="players"
     class="flex justify-center items-center h-screen bg-zinc-600"
     @restartGame="restartGame"
+    @gameSaved="gameSaved"
   />
 </template>
 

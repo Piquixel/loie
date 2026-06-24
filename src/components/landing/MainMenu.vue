@@ -1,91 +1,66 @@
 <!-- Component of landing state, the first step before starting a game -->
 <template>
-  <Modal :show="true" title="Commencer une partie" :leavable="false">
-    <form class="flex flex-col gap-6">
-      <div class="grid grid-cols-2 gap-4">
-        <div
-          v-for="(player, index) in players"
-          :key="index"
-          class="rounded-2xl border border-zinc-700 bg-zinc-800/50 p-4 transition-all duration-200 hover:border-zinc-500"
+  <Modal :show="hasSavedGame" title="Partie sauvegardée" @close="showGameChoiceModal = false">
+    <div class="flex flex-col gap-4">
+      <p>Une partie sauvegardée a été détectée.</p>
+
+      <p>Souhaitez-vous continuer votre partie ou en créer une nouvelle ?</p>
+    </div>
+
+    <template #footer>
+      <div class="flex justify-end gap-4">
+        <button
+          class="rounded-xl bg-blue-600 px-8 py-3 font-semibold transition-all hover:bg-blue-500 hover:shadow-lg hover:cursor-pointer hover:shadow-blue-500/20 disabled:bg-zinc-700 disabled:text-zinc-400 disabled:shadow-none"
+          @click="continueGame"
         >
-          <div class="mb-4 flex items-center gap-3">
-            <div
-              :class="[
-                'h-4 w-4 rounded-full',
-                {
-                  'bg-red-500': player.color === 'red',
-                  'bg-blue-500': player.color === 'blue',
-                  'bg-yellow-400': player.color === 'yellow',
-                  'bg-green-500': player.color === 'green',
-                },
-              ]"
-            />
+          Continuer
+        </button>
 
-            <span class="font-semibold text-zinc-100"> Joueur {{ index + 1 }} </span>
-          </div>
-          <label class="text-white" :for="'nickname-' + Number(index + 1)">Pseudo:</label>
-
-          <input
-            v-model="player.name"
-            :id="'nickname-' + Number(index + 1)"
-            type="text"
-            class="w-full rounded-lg border border-zinc-600 bg-zinc-900 px-3 py-2 text-white focus:border-blue-500 focus:outline-none"
-          />
-
-          <label class="text-white" :for="'color-' + Number(index + 1)">Couleur:</label>
-          <input
-            type="color"
-            :id="'color-' + Number(index + 1)"
-            class="appearance-none size-10 rounded-full border-zinc-600 border cursor-pointer block"
-            v-model="player.color"
-          />
-        </div>
+        <button
+          class="rounded-xl bg-blue-600 px-8 py-3 font-semibold transition-all hover:bg-blue-500 hover:shadow-lg hover:cursor-pointer hover:shadow-blue-500/20 disabled:bg-zinc-700 disabled:text-zinc-400 disabled:shadow-none"
+          @click="openNewGameModal"
+        >
+          Nouvelle partie
+        </button>
       </div>
-      <button
-        class="self-center rounded-xl bg-blue-600 px-8 py-3 font-semibold transition-all hover:bg-blue-500 hover:shadow-lg hover:cursor-pointer hover:shadow-blue-500/20 disabled:bg-zinc-700 disabled:text-zinc-400 disabled:shadow-none"
-        name="footer"
-        :disabled="!arePlayersValid"
-        @click="$emit('startGame', players)"
-      >
-        Lancer la partie
-      </button>
-    </form>
+    </template>
   </Modal>
+  <StartNewGame v-if="showNewGameModal || !hasSavedGame" @startGame="$emit('startGame', $event)" />
 </template>
 
 <script lang="ts">
-import type { Player } from '@/models/interfaces/player.interface'
+import { Storage } from '@/services/storageManager.ts'
 import { defineComponent } from 'vue'
 import Modal from '../ui/Modal.vue'
+import StartNewGame from './StartNewGame.vue'
 
 export default defineComponent({
   components: {
+    StartNewGame,
     Modal,
   },
 
   data() {
     return {
-      players: [
-        { name: 'Player 1', color: '#FF0000' },
-        { name: 'Player 2', color: '#0000FF' },
-        { name: 'Player 3', color: '#FFFF00' },
-        { name: 'Player 4', color: '#00FF00' },
-      ] as Player[],
+      showGameChoiceModal: false,
+      showNewGameModal: false,
     }
   },
 
   computed: {
-    arePlayersValid() {
-      const names = this.players.map((p) => p.name.trim())
-      const colors = this.players.map((p) => p.color.toUpperCase())
+    hasSavedGame(): boolean {
+      return Storage.load() !== false
+    },
+  },
 
-      console.log(this.players.map((p) => p.color))
+  methods: {
+    continueGame() {
+      this.$emit('resumeSavedGame')
+    },
 
-      const hasEmptyName = names.some((name) => name === '')
-      const hasDuplicateName = new Set(names).size !== names.length
-      const hasDuplicateColor = new Set(colors).size !== colors.length
-
-      return !hasEmptyName && !hasDuplicateName && !hasDuplicateColor
+    openNewGameModal() {
+      this.showGameChoiceModal = false
+      this.showNewGameModal = true
     },
   },
 })

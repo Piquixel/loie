@@ -8,9 +8,20 @@ export class Storage {
     localStorage.setItem(this.dataKey, stringData)
   }
 
+  public static saveCurrentPlayer(currentPlayerId: number): void {
+    localStorage.setItem('currentPlayerId', currentPlayerId.toString())
+  }
+
   public static load(): object | false {
     const data: string | null = localStorage.getItem(this.dataKey)
     if (data !== null) return JSON.parse(data)
+    return false
+  }
+
+  public static loadCurrentPlayer(): number | false {
+    const currentPlayerId = localStorage.getItem('currentPlayerId')
+
+    if (currentPlayerId !== null) return Number(currentPlayerId)
     return false
   }
 
