@@ -189,11 +189,11 @@ export function passTurn() {
 
 function checkIfCanMove(player: Player): boolean {
   if (player.waitTurn > 0) {
-    player.waitTurn -= 1
     addEventLog({
-      message: `${player.name} profite encore de l'hôtel pendant ${player.waitTurn} tour(s).`,
+      message: `${player.name} doit encore attendre pendant ${player.waitTurn} tour(s).`,
       type: 'effect',
     })
+    player.waitTurn -= 1
     return false
   }
 

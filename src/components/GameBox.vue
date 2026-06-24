@@ -41,7 +41,7 @@ export default defineComponent({
 
     saveGame() {
       Storage.save(this.players)
-      Storage.saveCurrentPlayer(usePlayers.currentPlayerIndex.value)
+      Storage.saveCurrentPlayer(currentPlayerIndex.value)
       this.gameRunning = false
       this.$emit('gameSaved')
     },
