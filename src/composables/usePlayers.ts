@@ -149,18 +149,6 @@ export async function movePlayer(playerId: number, delta: number) {
   if (player.position > 63) player.position = 63 - (player.position - 63) // double check après les effet de case (case de l'oie 54)
 }
 
-window.debugPosition = (playerId: number, cell: number, instant = false): void => {
-  const player = players.value.find((p) => p.id === playerId)
-  if (!player) return
-  const delta: number = cell - player?.position
-
-  if (instant) {
-    player.position = cell
-    return
-  }
-  movePlayer(playerId, delta)
-}
-
 export async function moveCurrentPlayer(delta: number) {
   const currentPlayer = players.value[currentPlayerIndex.value]
   if (!currentPlayer) {
