@@ -6,6 +6,7 @@ import * as usePlayers from '@/composables/usePlayers'
 import type { DiceData } from '@/models/interfaces/dice.interface'
 import { isOccupied } from '@/services/dice'
 import { addEventLog } from '@/services/eventLog'
+import { getContrastRatios } from 'cococh'
 import { defineComponent } from 'vue'
 
 const { rollTwoDices } = useDice()
@@ -90,6 +91,12 @@ export default defineComponent({
     playerColorClass(hex: string) {
       return { backgroundColor: hex }
     },
+    checkContrast(backgroundColor: string): boolean {
+      const ratios = getContrastRatios('#ffffff', backgroundColor)
+      if (!ratios || !ratios.large) return true
+
+      return ratios.large.AA
+    },
   },
 
   computed: {
@@ -109,8 +116,12 @@ export default defineComponent({
       class="flex flex-col items-center rounded-xl p-4 text-white shadow-lg transition"
       :style="playerColorClass(getCurrentPlayer.color)"
     >
-      <span class="mix-blend-difference">Au tour de</span>
-      <span class="mix-blend-difference">{{ getCurrentPlayer.name }}</span>
+      <span :class="checkContrast(getCurrentPlayer.color) ? 'text-white' : 'text-black'"
+        >Au tour de</span
+      >
+      <span :class="checkContrast(getCurrentPlayer.color) ? 'text-white' : 'text-black'">{{
+        getCurrentPlayer.name
+      }}</span>
     </div>
     <button
       @click="roll"

@@ -56,10 +56,10 @@ export default defineComponent({
   data() {
     return {
       players: [
-        { name: 'Player 1', color: 'red' },
-        { name: 'Player 2', color: 'blue' },
-        { name: 'Player 3', color: 'yellow' },
-        { name: 'Player 4', color: 'green' },
+        { name: 'Player 1', color: '#ff0000' },
+        { name: 'Player 2', color: '#0000ff' },
+        { name: 'Player 3', color: '#ffff00' },
+        { name: 'Player 4', color: '#00ff00' },
       ] as Player[],
     }
   },

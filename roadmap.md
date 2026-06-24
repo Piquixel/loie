@@ -51,6 +51,7 @@ export class Cell {
 | Case 6 | Téléport | Pont | Déplace immédiatement le joueur à la case 12. |
 | Case 19 | Malus | Hôtel | Passe le tour du joueur étant tombé dessus. |
 | Case 42 | Malus | Labyrinthe | Recul forcé de 12 cases (renvoie à la case 30). |
+| Case 51 | Malus | Puits | Doit attendre qu'un autre joueur prenne sa place. |
 | Case 58 | Malus | Tête de Mort | Renvoie immédiatement à la case 0. |
 
 <!-- ## III. Gestion de l'État Global (State Management) -->
