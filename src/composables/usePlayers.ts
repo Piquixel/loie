@@ -5,10 +5,10 @@ import { addEventLog } from '@/services/eventLog'
 import { cells } from '@/services/gameEngine'
 import { ref, type Ref } from 'vue'
 
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
-const players: Ref<Player[]> = ref([])
-const currentPlayerIndex = ref(0)
+export const players: Ref<Player[]> = ref([])
+export const currentPlayerIndex = ref(0)
 
 function getNextPlayerId() {
   if (players.value.length === 0) {
@@ -17,11 +17,11 @@ function getNextPlayerId() {
   return Math.max(...players.value.map((player) => player.id)) + 1
 }
 
-function getCurrentPlayer(): Player {
+export function getCurrentPlayer(): Player {
   return players.value[currentPlayerIndex.value]!
 }
 
-function initializePlayers(playerList: Player[] = []): void {
+export function initializePlayers(playerList: Player[] = []): void {
   players.value = playerList.map((player, index) => ({
     id: index + 1,
     name: player.name,
@@ -33,7 +33,7 @@ function initializePlayers(playerList: Player[] = []): void {
   currentPlayerIndex.value = 0
 }
 
-function addPlayer(name: string, color: string): void {
+export function addPlayer(name: string, color: string): void {
   players.value.push({
     id: getNextPlayerId(),
     name,
@@ -44,7 +44,7 @@ function addPlayer(name: string, color: string): void {
   })
 }
 
-async function movePlayer(playerId: number, delta: number) {
+export async function movePlayer(playerId: number, delta: number) {
   const player = players.value.find((p) => p.id === playerId)
   if (!player) {
     return
@@ -55,10 +55,11 @@ async function movePlayer(playerId: number, delta: number) {
     oldCell.player = undefined
   }
 
-  player.lastPosition = player.position
+  if (player.position % 9 !== 0) player.lastPosition = player.position
   let reste = 0
   if (delta < 0) {
     for (let i = 0; i < -delta; i++) {
+      await sleep(250)
       player.position--
     }
   } else {
@@ -92,7 +93,7 @@ async function movePlayer(playerId: number, delta: number) {
       const standingPlayer = players.value.find((p) => p.id === targetCell.player)
 
       if (standingPlayer && cells.findIndex((c) => c === targetCell) !== 0) {
-        standingPlayer.position = player.lastPosition
+        movePlayer(standingPlayer.id, -(player.position - player.lastPosition))
 
         if (standingPlayer.position == 19) {
           standingPlayer.waitTurn = 0
@@ -125,7 +126,15 @@ async function movePlayer(playerId: number, delta: number) {
   if (player.position > 63) player.position = 63 - (player.position - 63) // double check après les effet de case (case de l'oie 54)
 }
 
-async function moveCurrentPlayer(delta: number) {
+window.debugPositions = (playerId: number, cell: number): void => {
+  const player = players.value.find((p) => p.id === playerId)
+  if (!player) return
+  const delta: number = cell - player?.position
+
+  movePlayer(playerId, delta)
+}
+
+export async function moveCurrentPlayer(delta: number) {
   const currentPlayer = players.value[currentPlayerIndex.value]
   if (!currentPlayer) {
     return
@@ -134,15 +143,15 @@ async function moveCurrentPlayer(delta: number) {
   await movePlayer(currentPlayer.id, delta)
 }
 
-function resetPlayers() {
+export function resetPlayers() {
   players.value = []
 }
 
-function checkEnd() {
+export function checkEnd() {
   return players.value.find((p) => p.position == 63)
 }
 
-function passTurn() {
+export function passTurn() {
   currentPlayerIndex.value =
     currentPlayerIndex.value < players.value.length - 1 ? currentPlayerIndex.value + 1 : 0
   const currentPlayer = players.value[currentPlayerIndex.value]

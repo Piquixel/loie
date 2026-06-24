@@ -2,7 +2,7 @@
 import ColorBends from './components/external/ColorBends.vue'
 import GameBox from './components/GameBox.vue'
 import MainMenu from './components/landing/MainMenu.vue'
-import usePlayers from './composables/usePlayers'
+import * as usePlayers from './composables/usePlayers'
 import type { Player } from './models/interfaces/player.interface'
 import { clearEventLogs } from './services/eventLog'
 import { Storage } from './services/storageManager.ts'

@@ -1,6 +1,6 @@
 //Manage case effects
 
-import usePlayers from '@/composables/usePlayers'
+import * as usePlayers from '@/composables/usePlayers'
 import type { Player } from '@/models/interfaces/player.interface'
 import { addEventLog } from './eventLog'
 

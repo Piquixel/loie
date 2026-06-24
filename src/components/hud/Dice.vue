@@ -2,7 +2,7 @@
 <!-- Component of a dice -->
 <script lang="ts">
 import useDice from '@/composables/useDice'
-import usePlayers from '@/composables/usePlayers'
+import * as usePlayers from '@/composables/usePlayers'
 import type { DiceData } from '@/models/interfaces/dice.interface'
 import { addEventLog } from '@/services/eventLog'
 import { defineComponent } from 'vue'

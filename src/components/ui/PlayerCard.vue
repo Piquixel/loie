@@ -1,6 +1,6 @@
 <!-- Template of a card (only use for displaying player info but could be used for more in the future) -->
 <script lang="ts">
-import usePlayers from '@/composables/usePlayers'
+import * as usePlayers from '@/composables/usePlayers'
 import type { Player } from '@/models/interfaces/player.interface'
 import { defineComponent, type PropType } from 'vue'
 
